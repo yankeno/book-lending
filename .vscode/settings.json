@@ -1,0 +1,48 @@
+{
+    "files.autoSave": "onFocusChange",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "files.autoGuessEncoding": true,
+    "LaravelExtraIntellisense.modelVariables": {
+      "user": "App\\Models\\User"
+    },
+    "intelephense.diagnostics.undefinedClassConstants": false,
+    "intelephense.diagnostics.undefinedConstants": false,
+    "intelephense.diagnostics.undefinedFunctions": false,
+    "intelephense.diagnostics.undefinedMethods": false,
+    "intelephense.diagnostics.undefinedProperties": false,
+    "intelephense.diagnostics.undefinedTypes": false,
+    "[javascriptreact]": {
+      "editor.tabSize": 2
+    },
+    "[javascript]": {
+      "editor.tabSize": 2
+    },
+    "[typescriptreact]": {
+      "editor.tabSize": 2
+    },
+    "[typescript]": {
+      "editor.tabSize": 2
+    },
+    "files.insertFinalNewline": true,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "[sql]": {
+      "editor.defaultFormatter": "adpyke.vscode-sql-formatter"
+    },
+    "[php]": {
+      "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+    },
+    "editor.accessibilitySupport": "off",
+    "sql-formatter.uppercase": true,
+    "workbench.iconTheme": "material-icon-theme",
+    "[blade]": {
+      "editor.defaultFormatter": "shufo.vscode-blade-formatter"
+    },
+    "workbench.editor.enablePreview": false,
+    "php.suggest.basic": false,
+    "php.validate.enable": false,
+    "php.validate.executablePath": "",
+    "editor.unicodeHighlight.nonBasicASCII": false,
+    "files.trimFinalNewlines": true
+  }
+  
