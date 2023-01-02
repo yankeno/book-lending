@@ -17,7 +17,6 @@ class CreateRentalsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('book_id')->constrained();
-            $table->foreignId('processor_id')->constrained('admins');
             $table->dateTime('checkout_date');
             $table->dateTime('return_date');
             $table->boolean('is_returned')->default(false);

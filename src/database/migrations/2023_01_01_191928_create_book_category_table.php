@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBookCateogryTable extends Migration
+class CreateBookCategoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateBookCateogryTable extends Migration
      */
     public function up()
     {
-        Schema::create('book_cateogry', function (Blueprint $table) {
+        Schema::create('book_category', function (Blueprint $table) {
             $table->id();
             $table->foreignId('book_id')->constrained();
             $table->foreignId('category_id')->constrained();
@@ -29,6 +29,6 @@ class CreateBookCateogryTable extends Migration
     public function down()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('book_cateogry');
+        Schema::dropIfExists('book_category');
     }
 }
