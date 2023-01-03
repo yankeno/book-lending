@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             BookSeeder::class,
             BookAuthorSeeder::class,
             BookCategorySeeder::class,
+            AdminSeeder::class,
         ]);
     }
 }
