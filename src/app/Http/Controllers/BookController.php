@@ -15,11 +15,15 @@ class BookController extends Controller
     public function index()
     {
         $newBooks = $this->book
-            ->orderByDesc('created_at')
+            ->with([
+                'publisher:id,name',
+                'authors:name',
+                'categories:parent_category_id,name',
+                'categories.parent_category',
+            ])
+            ->latest()
             ->limit(10)
-            ->with(['authors:name', 'publisher:name', 'categories.parent_category:name'])
             ->get();
-        // dd($newBooks);
         return view('user.search', compact('newBooks'));
     }
 }
