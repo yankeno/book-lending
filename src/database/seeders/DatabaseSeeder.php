@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             AuthorBookSeeder::class,
             BookCategorySeeder::class,
             AdminSeeder::class,
+            RentalSeeder::class,
         ]);
     }
 }

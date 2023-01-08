@@ -24,8 +24,8 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth:users')->group(function () {
     Route::get('/', [BookController::class, 'index'])->name('book.index');
-    Route::post('/search', [BookController::class, 'search'])->name('book.search');
-    Route::get('/show/{book}', [BookController::class, 'show'])->name('book.show');
+    Route::get('/search', [BookController::class, 'search'])->name('book.search');
+    Route::get('/show/{bookId}', [BookController::class, 'show'])->name('book.show');
     Route::post('checkout', [BookController::class, 'checkout'])->name('book.checkout');
 });
 

@@ -20,6 +20,7 @@ class BookSeeder extends Seeder
                 'title' => '実践ハイパフォーマンスMySQL',
                 'isbn_13' => '9784873112091',
                 'image' => 'sample1.jpg',
+                'published_date' => '2013-11-25',
                 'created_at' => '2023-01-01 11:11:11',
             ],
             [
@@ -27,6 +28,7 @@ class BookSeeder extends Seeder
                 'title' => '夜は短し歩けよ乙女',
                 'isbn_13' => '9784043878024',
                 'image' => 'sample2.jpg',
+                'published_date' => '2012-09-01',
                 'created_at' => '2023-01-01 11:11:11',
             ],
             [
@@ -34,6 +36,7 @@ class BookSeeder extends Seeder
                 'title' => '生き方',
                 'isbn_13' => '9784763195432',
                 'image' => 'sample3.jpg',
+                'published_date' => '2012-07-01',
                 'created_at' => '2023-01-01 11:11:11',
             ],
         ]);
