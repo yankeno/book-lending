@@ -29,7 +29,12 @@ class Book extends Model
         return $this->belongsToMany(Category::class);
     }
 
-    public function users()
+    public function review_users()
+    {
+        return $this->belongsToMany(User::class, 'reviews', 'book_id', 'user_id');
+    }
+
+    public function rental_users()
     {
         return $this->belongsToMany(User::class, 'rentals', 'book_id', 'user_id');
     }
@@ -42,7 +47,19 @@ class Book extends Model
             ->first();
     }
 
-    public function scopeSelectCategory($query = null, int $categoryId)
+    public function ratingAverage()
+    {
+        return Review::where('book_id', $this->id)
+            ->avg('rating');
+    }
+
+    public function reviewsCount()
+    {
+        return Review::where('book_id', $this->id)
+            ->count();
+    }
+
+    public function scopeSelectCategory($query = null, $categoryId)
     {
         if ($categoryId !== 0) {
             $query->whereHas('categories', function ($q) use ($categoryId) {

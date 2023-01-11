@@ -68,7 +68,23 @@
                                                     {{ $newBook->published_date->format('Y/m/d') }}
                                                 @endif
                                             </p>
+                                            <div class="flex items-center">
+                                                <div class="star5_rating"
+                                                    data-rate="{{ \App\Helpers\RatingHelper::roundRating($newBook->ratingAverage()) }}">
+                                                </div>
+                                                <span
+                                                    class="text-sm text-gray-500 items-center px-1">{{ $newBook->reviewsCount() }}
+                                                    件の評価</span>
+                                            </div>
                                         </div>
+                                        {{-- <div class="flex-1 min-w-0">
+                                            <p>
+                                                <span class="star5_rating" data-rate="4"></span>
+                                            </p>
+                                        </div> --}}
+                                        {{-- <div class="inline-flex items-center">
+
+                                        </div> --}}
                                         <div class="inline-flex items-center text-base font-semibold">
                                             @if ($newBook->status()->is_returned ?? true)
                                                 <div class="text-green-400">
@@ -115,6 +131,14 @@
                                                     {{ $book->published_date->format('Y/m/d') }}
                                                 @endif
                                             </p>
+                                            <div class="flex items-center">
+                                                <div class="star5_rating"
+                                                    data-rate="{{ \App\Helpers\RatingHelper::roundRating($book->ratingAverage()) }}">
+                                                </div>
+                                                <span
+                                                    class="text-sm text-gray-500 items-center px-1">{{ $book->reviewsCount() }}
+                                                    件の評価</span>
+                                            </div>
                                         </div>
                                         <div class="inline-flex items-center text-base font-semibold">
                                             @if ($book->status()->is_returned ?? true)

@@ -5,14 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rental extends Model
+class Review extends Model
 {
     use HasFactory;
 
-    protected $table = 'rentals';
-
-    public function book()
-    {
-        return $this->belongsTo(Book::class);
-    }
+    protected $table = 'reviews';
 }
