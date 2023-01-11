@@ -2,6 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\AuthorBook;
+use App\Models\Book;
+use App\Models\BookCategory;
+use App\Models\Rental;
+use App\Models\Review;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,9 +26,16 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             AuthorSeeder::class,
             BookSeeder::class,
-            BookAuthorSeeder::class,
+            AuthorBookSeeder::class,
             BookCategorySeeder::class,
             AdminSeeder::class,
+            RentalSeeder::class,
         ]);
+        User::factory(98)->create();
+        Book::factory(97)->create();
+        AuthorBook::factory(100)->create();
+        BookCategory::factory(100)->create();
+        Review::factory(1000)->create();
+        Rental::factory(1000)->create();
     }
 }

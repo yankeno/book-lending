@@ -17,8 +17,8 @@ class CreateRentalsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('book_id')->constrained();
-            $table->dateTime('checkout_date');
-            $table->dateTime('return_date');
+            $table->date('checkout_date')->comment('貸出日');
+            $table->date('return_date')->comment('返却予定日');
             $table->boolean('is_returned')->default(false);
             $table->timestamps();
         });

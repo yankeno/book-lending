@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class BookAuthorSeeder extends Seeder
+class AuthorBookSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class BookAuthorSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('book_author')->insert([
+        DB::table('author_book')->insert([
             [
                 'book_id' => 1,
                 'author_id' => 1,
