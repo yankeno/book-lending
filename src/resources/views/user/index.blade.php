@@ -13,7 +13,7 @@
                                 @foreach ($parentCategory->categories as $category)
                                     <option value="{{ $category->id }}"
                                         @if ((int) \Request::get('category') === $category->id) selected @endif>
-                                        {{ $category->name }}{{ $category->id }}
+                                        {{ $category->name }}
                                     </option>
                                 @endforeach
                         @endforeach
@@ -40,103 +40,11 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     {{-- 新着図書表示（初回アクセス時） --}}
                     @isset($newBooks)
-                        <h2 class="font-semibold text-xl text-gray-800 block pb-2 border-b border-gray-200">
-                            新着図書
-                        </h2>
-                        <ul class="max-w-full divide-y divide-gray-100 dark:divide-gray-200 border-b border-gray-200">
-                            @foreach ($newBooks as $newBook)
-                                <li class="py-3 sm:pb-4">
-                                    <div class="flex items-center space-x-8">
-                                        <div class="flex-shrink-0">
-                                            <img class="w-auto h-16" src="{{ asset('storage/books/' . $newBook->image) }}">
-                                        </div>
-                                        <div class="flex-1 min-w-0">
-                                            <a href="{{ route('user.book.show', ['bookId' => $newBook->id]) }}">
-                                                <p
-                                                    class="text-base font-medium text-gray-800 truncate hover:text-orange-500">
-                                                    {{ $newBook->title }}
-                                                </p>
-                                            </a>
-                                            <p class="text-sm text-gray-800 truncate">
-                                                @foreach ($newBook->authors as $author)
-                                                    {{ $author->name }}
-                                                    @if (!$loop->last)
-                                                        ,
-                                                    @endif
-                                                @endforeach
-                                                | @if ($newBook->published_date)
-                                                    {{ $newBook->published_date->format('Y/m/d') }}
-                                                @endif
-                                            </p>
-                                            <x-review-star :rating="\App\Helpers\RatingHelper::roundRating(
-                                                $newBook->ratingAverage(),
-                                            )" :reviewCount="$newBook->reviewsCount()" />
-                                        </div>
-                                        <div class="inline-flex items-center text-base font-semibold">
-                                            @if ($newBook->status()->is_returned ?? true)
-                                                <div class="text-green-400">
-                                                    貸出可能
-                                                </div>
-                                            @else
-                                                <div class="text-rose-400">
-                                                    貸出中
-                                                </div>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
+                        <x-book-list :books="$newBooks" title="新着図書" />
                     @endisset
                     {{-- 検索結果（検索実行時） --}}
                     @isset($books)
-                        <h2 class="font-semibold text-xl text-gray-800 block pb-2 border-b border-gray-200">
-                            検索結果
-                        </h2>
-                        <ul class="max-w-full divide-y divide-gray-100 dark:divide-gray-200 border-b border-gray-200">
-                            @foreach ($books as $book)
-                                <li class="py-3 sm:pb-4">
-                                    <div class="flex items-center space-x-8">
-                                        <div class="flex-shrink-0">
-                                            <img class="w-auto h-16" src="{{ asset('storage/books/' . $book->image) }}">
-                                        </div>
-                                        <div class="flex-1 min-w-0">
-                                            <a href="{{ route('user.book.show', ['bookId' => $book->id]) }}">
-                                                <p
-                                                    class="text-base font-medium text-gray-800 truncate hover:text-orange-500">
-                                                    {{ $book->title }}
-                                                </p>
-                                            </a>
-                                            <p class="text-sm text-gray-800 truncate">
-                                                @foreach ($book->authors as $author)
-                                                    {{ $author->name }}
-                                                    @if (!$loop->last)
-                                                        ,
-                                                    @endif
-                                                @endforeach
-                                                | @if ($book->published_date)
-                                                    {{ $book->published_date->format('Y/m/d') }}
-                                                @endif
-                                            </p>
-                                            <x-review-star :rating="\App\Helpers\RatingHelper::roundRating(
-                                                $newBook->ratingAverage(),
-                                            )" :reviewCount="$newBook->reviewsCount()" />
-                                        </div>
-                                        <div class="inline-flex items-center text-base font-semibold">
-                                            @if ($book->status()->is_returned ?? true)
-                                                <div class="text-green-400">
-                                                    貸出可能
-                                                </div>
-                                            @else
-                                                <div class="text-rose-400">
-                                                    貸出中
-                                                </div>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
+                        <x-book-list :books="$books" title="検索結果" />
                     @endisset
                 </div>
             </div>

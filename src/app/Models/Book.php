@@ -24,9 +24,9 @@ class Book extends Model
         return $this->belongsToMany(Author::class);
     }
 
-    public function categories()
+    public function category()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function review_users()
@@ -62,9 +62,7 @@ class Book extends Model
     public function scopeSelectCategory($query = null, $categoryId)
     {
         if ($categoryId !== 0) {
-            $query->whereHas('categories', function ($q) use ($categoryId) {
-                $q->where('book_category.category_id', $categoryId);
-            });
+            $query->where('category_id', $categoryId);
         }
         return $query;
     }
