@@ -10,9 +10,9 @@ class Category extends Model
 {
     use HasFactory, SoftDeletes;
 
-    public function books()
+    public function book()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->hasOne(Category::class);
     }
 
     public function parent_category()

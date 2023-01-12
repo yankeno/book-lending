@@ -17,6 +17,7 @@ class BookSeeder extends Seeder
         DB::table('books')->insert([
             [
                 'publisher_id' => 1,
+                'category_id' => 63,
                 'title' => '実践ハイパフォーマンスMySQL',
                 'isbn_13' => '9784873112091',
                 'image' => 'sample1.jpg',
@@ -25,6 +26,7 @@ class BookSeeder extends Seeder
             ],
             [
                 'publisher_id' => 2,
+                'category_id' => 4,
                 'title' => '夜は短し歩けよ乙女',
                 'isbn_13' => '9784043878024',
                 'image' => 'sample2.jpg',
@@ -33,6 +35,7 @@ class BookSeeder extends Seeder
             ],
             [
                 'publisher_id' => 3,
+                'category_id' => 8,
                 'title' => '生き方',
                 'isbn_13' => '9784763195432',
                 'image' => 'sample3.jpg',
