@@ -36,7 +36,11 @@
                     <div class="inline-flex items-center text-base font-semibold">
                         @if ($book->status()->is_returned ?? true)
                             <div class="text-green-400">
-                                貸出可能
+                                @if (request()->routeIs('user.book.mypage'))
+                                    返却済み
+                                @else
+                                    貸出可能
+                                @endif
                             </div>
                         @else
                             <div class="text-rose-400">

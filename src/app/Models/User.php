@@ -47,4 +47,16 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Book::class, 'rentals', 'user_id', 'book_id');
     }
+
+    /**
+     * 貸出中の本をカウント
+     *
+     * @return integer
+     */
+    public function rentalCount(): int
+    {
+        return Rental::where('user_id', $this->id)
+            ->where('is_returned', 0)
+            ->count();
+    }
 }

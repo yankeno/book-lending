@@ -9,6 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
+                    <x-flash-message status="{{ session('status') }}" />
                     <section class="text-gray-600 body-font overflow-hidden">
                         <div class="container px-2 py-12 mx-auto">
                             <div class="lg:w-5/6 mx-auto flex flex-wrap justify-center">
@@ -42,8 +43,17 @@
                                                 class="font-semibold">ISBN-13</span>：{{ substr($book->isbn_13, 0, 3) }}-{{ substr($book->isbn_13, 3, 12) }}
                                         </h2>
                                     </div>
-                                    <button
-                                        class="text-white bg-cyan-500 border-0 py-2 px-12 focus:outline-none hover:bg-cyan-600 rounded">本を借りる</button>
+                                    <div class="flex py-2">
+                                        <form method="POST" action="{{ route('user.book.checkout') }}">
+                                            @csrf
+                                            <input type="hidden" value="{{ $book->id }}" name="id" />
+                                            <button id="checkout" type="submit"
+                                                class="text-white bg-cyan-500 border-0 py-2 px-12 focus:outline-none hover:bg-cyan-600 rounded mx-2">本を借りる</button>
+                                        </form>
+
+                                        <button id="review"
+                                            class="text-white bg-cyan-500 border-0 py-2 px-10 focus:outline-none hover:bg-cyan-600 rounded mx-2">レビューを書く</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -52,5 +62,5 @@
             </div>
         </div>
     </div>
-
+    <script src="{{ asset('js/user/show.js') }}" defer></script>
 </x-app-layout>

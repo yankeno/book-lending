@@ -26,7 +26,8 @@ Route::middleware('auth:users')->group(function () {
     Route::get('/', [BookController::class, 'index'])->name('book.index');
     Route::get('/search', [BookController::class, 'search'])->name('book.search');
     Route::get('/show/{bookId}', [BookController::class, 'show'])->name('book.show');
-    Route::post('checkout', [BookController::class, 'checkout'])->name('book.checkout');
+    Route::post('/checkout', [BookController::class, 'checkout'])->name('book.checkout');
+    Route::get('/mypage', [BookController::class, 'mypage'])->name('book.mypage');
 });
 
 require __DIR__ . '/auth.php';
