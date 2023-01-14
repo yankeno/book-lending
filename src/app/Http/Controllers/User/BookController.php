@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
-use App\Models\Book;
-use App\Models\Category;
-use App\Models\ParentCategory;
 use Illuminate\Http\Request;
+use Auth;
+use App\Models\Book;
+use App\Models\ParentCategory;
+use App\Http\Controllers\Controller;
 
 class BookController extends Controller
 {
@@ -43,6 +44,7 @@ class BookController extends Controller
             'category:id,parent_category_id,name',
         ])
             ->findOrFail($id);
-        return view('user.show', compact('book'));
+        $isBorrowing = Auth::user()->isBorrowing($id);
+        return view('user.show', compact(['book', 'isBorrowing']));
     }
 }

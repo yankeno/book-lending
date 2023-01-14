@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BookController;
+use App\Http\Controllers\User\BookController;
+use App\Http\Controllers\User\RentalController;
+use App\Http\Controllers\User\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +28,12 @@ Route::middleware('auth:users')->group(function () {
     Route::get('/', [BookController::class, 'index'])->name('book.index');
     Route::get('/search', [BookController::class, 'search'])->name('book.search');
     Route::get('/show/{bookId}', [BookController::class, 'show'])->name('book.show');
-    Route::post('checkout', [BookController::class, 'checkout'])->name('book.checkout');
+
+    Route::get('/mypage', [RentalController::class, 'mypage'])->name('rental.mypage');
+    Route::post('/rental/checkout', [RentalController::class, 'checkout'])->name('rental.checkout');
+    Route::post('/rental/return', [RentalController::class, 'return'])->name('rental.return');
+
+    Route::get('/review/create/{bookId}', [ReviewController::class, 'create'])->name('review.create');
 });
 
 require __DIR__ . '/auth.php';

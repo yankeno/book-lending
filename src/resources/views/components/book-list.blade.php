@@ -1,7 +1,7 @@
 @isset($books)
-    <h2 class="font-semibold text-xl text-gray-800 block pb-2 border-b border-gray-200">
+    <div class="font-semibold text-xl text-gray-800 pb-2 border-b border-gray-200 flex">
         {{ $title }}
-    </h2>
+    </div>
     <ul class="max-w-full divide-y divide-gray-100 dark:divide-gray-200 border-b border-gray-200">
         @if ($books->isEmpty())
             <li class="py-3 sm:pb-4">
@@ -36,7 +36,11 @@
                     <div class="inline-flex items-center text-base font-semibold">
                         @if ($book->status()->is_returned ?? true)
                             <div class="text-green-400">
-                                貸出可能
+                                @if (request()->routeIs('user.rental.mypage'))
+                                    返却済み
+                                @else
+                                    貸出可能
+                                @endif
                             </div>
                         @else
                             <div class="text-rose-400">
