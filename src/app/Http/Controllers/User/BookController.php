@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
+use Illuminate\Http\Request;
 use Auth;
 use App\Models\Book;
 use App\Models\ParentCategory;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class BookController extends Controller
 {
@@ -43,37 +44,7 @@ class BookController extends Controller
             'category:id,parent_category_id,name',
         ])
             ->findOrFail($id);
-        return view('user.show', compact('book'));
-    }
-
-    public function mypage()
-    {
-        $userId = Auth::id();
-        $books = Book::with([
-            'authors:id,name',
-            'category:id,name',
-        ])
-            ->whereHas('rental_users', function ($query) use ($userId) {
-                $query->where('user_id', $userId);
-            })
-            ->latest()
-            ->get();
-        // dd($books);
-        return view('user.mypage', compact('books'));
-    }
-
-    public function checkout(Request $request)
-    {
-        $user = Auth::user();
-        $count = $user->rentalCount();
-        if ($count >= 3) {
-            return redirect()
-                ->back()
-                ->with([
-                    'message' => '1度に借りられる図書は3冊までです。',
-                    'status' => 'alert',
-                ]);
-        }
-        return redirect()->route('user.book.mypage');
+        $isBorrowing = Auth::user()->isBorrowing($id);
+        return view('user.show', compact(['book', 'isBorrowing']));
     }
 }

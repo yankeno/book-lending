@@ -3,7 +3,7 @@
 @if ($errors->any())
     <div {{ $attributes }}>
         <div class="font-medium text-red-600">
-            {{ __('ログインで問題が発生しました。') }}
+            {{ __('図書の貸出処理ができませんでした。') }}
         </div>
 
         <ul class="mt-3 list-disc list-inside text-sm text-red-600">

@@ -3,6 +3,7 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             マイページ
         </h2>
+        <x-flash-message status="{{ session('status') }}" />
     </x-slot>
 
     <div class="py-12">
