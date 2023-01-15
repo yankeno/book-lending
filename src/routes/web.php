@@ -34,6 +34,7 @@ Route::middleware('auth:users')->group(function () {
     Route::post('/rental/return', [RentalController::class, 'return'])->name('rental.return');
 
     Route::get('/review/create/{bookId}', [ReviewController::class, 'create'])->name('review.create');
+    Route::post('/review/store', [ReviewController::class, 'store'])->name('review.store');
 });
 
 require __DIR__ . '/auth.php';
