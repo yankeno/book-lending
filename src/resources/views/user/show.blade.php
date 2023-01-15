@@ -60,7 +60,10 @@
                                             </button>
                                         </form>
                                         <button id="review"
-                                            class="text-white bg-cyan-500 border-0 py-2 px-10 focus:outline-none hover:bg-cyan-600 rounded mx-2 my-2">レビューを書く</button>
+                                            class="text-white bg-cyan-500 border-0 py-2 px-10 focus:outline-none hover:bg-cyan-600 rounded mx-2 my-2">
+                                            <a
+                                                href="{{ route('user.review.create', ['bookId' => $book->id]) }}">レビューを書く</a>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
