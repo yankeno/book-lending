@@ -16,6 +16,15 @@ class ReviewRequest extends FormRequest
         return true;
     }
 
+    public function attributes()
+    {
+        return [
+            'rating' => '評価',
+            'reviewText' => 'レビュー',
+            'bookId' => '図書',
+        ];
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

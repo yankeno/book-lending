@@ -30,7 +30,7 @@ class BookController extends Controller
             ->selectCategory((int)$request->category)
             ->searchKeyword($request->keyword)
             ->latest()
-            ->get();
+            ->paginate(50);
         $parentCategories = ParentCategory::with('categories')
             ->get();
         return view('user.index', compact(['books', 'parentCategories']));
