@@ -36,7 +36,7 @@ class Book extends Model
 
     public function rental_users()
     {
-        return $this->belongsToMany(User::class, 'rentals', 'book_id', 'user_id');
+        return $this->belongsToMany(User::class, 'rentals', 'book_id', 'user_id');;
     }
 
     public function status()

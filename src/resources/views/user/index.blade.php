@@ -49,5 +49,14 @@
                 </div>
             </div>
         </div>
+        {{-- books がセットされている場合は検索結果 --}}
+        @isset($books)
+            <div class="mx-auto sm:px-6 lg:px-8 mt-6">
+                {{ $books->appends([
+                        'pagination' => \Request::get('pagination'),
+                        'category' => \Request::get('category'),
+                    ])->links() }}
+            </div>
+        @endisset
     </div>
 </x-app-layout>
