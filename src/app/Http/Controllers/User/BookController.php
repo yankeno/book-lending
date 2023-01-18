@@ -23,14 +23,19 @@ class BookController extends Controller
 
     public function search(Request $request)
     {
-        $books = Book::with([
+        $booksQuery = Book::with([
             'authors:id,name',
             'category:id,name',
         ])
             ->selectCategory((int)$request->category)
             ->searchKeyword($request->keyword)
-            ->latest()
-            ->paginate(50);
+            ->latest();
+
+        if (isset($request->filter)) {
+            $booksQuery->filter($request->filter);
+        }
+
+        $books = $booksQuery->paginate(50);
         $parentCategories = ParentCategory::with('categories')
             ->get();
         return view('user.index', compact(['books', 'parentCategories']));

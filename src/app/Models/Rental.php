@@ -26,4 +26,9 @@ class Rental extends Model
     {
         return $query->where('is_returned', 0);
     }
+
+    public function scopeIsReturned($query)
+    {
+        return $query->where('is_returned', 1);
+    }
 }

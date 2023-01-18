@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
         ]);
         User::factory(100)->create();
         Book::factory(1000)->create();
-        AuthorBook::factory(100)->create();
+        AuthorBook::factory(1000)->create();
         Review::factory(1000)->create();
         Rental::factory(1000)->create();
     }

@@ -20,9 +20,9 @@ Route::get('/', function () {
     return view('user.welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('user.dashboard');
-})->middleware(['auth:users'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('user.dashboard');
+// })->middleware(['auth:users'])->name('dashboard');
 
 Route::middleware('auth:users')->group(function () {
     Route::get('/', [BookController::class, 'index'])->name('book.index');

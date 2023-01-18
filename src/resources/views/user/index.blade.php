@@ -5,7 +5,7 @@
         </h2>
         <form method="get" action="{{ route('user.book.search') }}">
             <div class="lg:flex lg:justify-around">
-                <div class="lg:flex items-center">
+                <div class="lg:flex items-center mx-auto">
                     <select name="category" class="mb-2 lg:mb-0 lg:mr-2">
                         <option value="0" @if (\Request::get('category') === '0') selected @endif>全て</option>
                         @foreach ($parentCategories as $parentCategory)
@@ -28,6 +28,24 @@
                                 検索
                             </button>
                         </div>
+                    </div>
+                </div>
+                <div class="flex">
+                    <div>
+                        <span class="text-sm">絞り込み<br></span>
+                        <select name="filter" id="filter" class="mr-4">
+                            <option value="0">
+                                全て
+                            </option>
+                            <option value="{{ \Constant::IS_CHECKED_OUT }}"
+                                @if (\Request::get('filter') === \Constant::IS_CHECKED_OUT) selected @endif>
+                                貸出中
+                            </option>
+                            <option value="{{ \Constant::IS_RETURNED }}"
+                                @if (\Request::get('filter') === \Constant::IS_RETURNED) selected @endif>
+                                貸出可能
+                            </option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -55,8 +73,15 @@
                 {{ $books->appends([
                         'pagination' => \Request::get('pagination'),
                         'category' => \Request::get('category'),
+                        'filter' => \Request::get('filter'),
                     ])->links() }}
             </div>
         @endisset
     </div>
+    <script>
+        const filter = document.getElementById('filter');
+        filter.addEventListener('change', function() {
+            this.form.submit();
+        });
+    </script>
 </x-app-layout>
