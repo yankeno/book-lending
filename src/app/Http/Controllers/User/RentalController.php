@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Models\Book;
 use App\Models\Rental;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -13,15 +12,6 @@ class RentalController extends Controller
 {
     public function mypage()
     {
-        // $user = Auth::user();
-        // $books = Book::with([
-        //     'authors:id,name',
-        //     'category:id,name',
-        // ])
-        //     ->whereHas('rental_users', function ($query) use ($user) {
-        //         $query->where('user_id', $user->id);
-        //     })
-        //     ->get();
         $rentals = Rental::with([
             'book',
             'book.authors',
@@ -29,7 +19,6 @@ class RentalController extends Controller
             ->where('user_id', Auth::id())
             ->orderByDesc('checkout_date')
             ->paginate(50);
-        // dd($rentals->checkout_date);
         return view('user.mypage', compact('rentals'));
     }
 

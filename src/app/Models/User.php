@@ -61,7 +61,7 @@ class User extends Authenticatable
             ->count();
     }
 
-    public function isBorrowing($bookId): bool
+    public function isBorrowingBook($bookId): bool
     {
         return Rental::where('user_id', $this->id)
             ->where('book_id', $bookId)

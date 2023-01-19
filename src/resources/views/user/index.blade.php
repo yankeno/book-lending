@@ -6,7 +6,7 @@
         <form method="get" action="{{ route('user.book.search') }}">
             <div class="lg:flex lg:justify-around">
                 <div class="lg:flex items-center mx-auto">
-                    <select name="category" class="mb-2 lg:mb-0 lg:mr-2">
+                    <select name="category" id="category" class="mb-2 lg:mb-0 lg:mr-2">
                         <option value="0" @if (\Request::get('category') === '0') selected @endif>全て</option>
                         @foreach ($parentCategories as $parentCategory)
                             <optgroup label="{{ $parentCategory->name }}">
@@ -81,6 +81,10 @@
     <script>
         const filter = document.getElementById('filter');
         filter.addEventListener('change', function() {
+            this.form.submit();
+        });
+        const category = document.getElementById('category');
+        category.addEventListener('change', function() {
             this.form.submit();
         });
     </script>

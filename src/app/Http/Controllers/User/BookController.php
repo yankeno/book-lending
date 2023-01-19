@@ -49,7 +49,7 @@ class BookController extends Controller
             'category:id,parent_category_id,name',
         ])
             ->findOrFail($id);
-        $isBorrowing = Auth::user()->isBorrowing($id);
-        return view('user.show', compact(['book', 'isBorrowing']));
+        $isBorrowingBook = Auth::user()->isBorrowingBook($id);
+        return view('user.show', compact(['book', 'isBorrowingBook']));
     }
 }

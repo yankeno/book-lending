@@ -47,12 +47,12 @@
                                     </div>
                                     <div class="flex flex-wrap py-2">
                                         <form method="POST"
-                                            action="@if ($isBorrowing) {{ route('user.rental.return') }} @else {{ route('user.rental.checkout') }} @endif">
+                                            action="@if ($isBorrowingBook) {{ route('user.rental.return') }} @else {{ route('user.rental.checkout') }} @endif">
                                             @csrf
                                             <input type="hidden" value="{{ $book->id }}" name="bookId" />
                                             <button id="checkout" type="submit"
                                                 class="bg-cyan-500 hover:bg-cyan-600 text-white  border-0 py-2 px-12 focus:outline-none  rounded mx-2 my-2">
-                                                @if ($isBorrowing)
+                                                @if ($isBorrowingBook)
                                                     本を返却
                                                 @else
                                                     本を借りる
@@ -74,7 +74,7 @@
         </div>
     </div>
     @php
-        if ($isBorrowing) {
+        if ($isBorrowingBook) {
             $confirmMessage = '図書を返却しますか？';
         } else {
             $confirmMessage = 'この本を借りますか？\n1度に借りられるのは3冊までです。';
