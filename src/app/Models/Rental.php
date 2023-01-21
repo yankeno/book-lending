@@ -16,6 +16,9 @@ class Rental extends Model
         'checkout_date',
         'return_date',
     ];
+    protected $casts = [
+        'is_returned' => 'boolean',
+    ];
 
     public function book()
     {

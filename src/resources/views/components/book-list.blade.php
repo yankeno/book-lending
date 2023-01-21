@@ -34,7 +34,7 @@
                         <x-review-star :rating="\App\Helpers\RatingHelper::roundRating($book->ratingAverage())" :reviewCount="$book->reviewsCount()" />
                     </div>
                     <div class="inline-flex items-center text-base font-semibold">
-                        @if ($book->status()->is_returned ?? true)
+                        @if ($book->canBeBorrowed())
                             <div class="text-green-400">
                                 @if (request()->routeIs('user.rental.mypage'))
                                     返却済み

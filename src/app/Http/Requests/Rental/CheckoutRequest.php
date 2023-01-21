@@ -16,8 +16,7 @@ class CheckoutRequest extends RentalRequest
             if ($user->rentalCount() >= 3) {
                 $validator->errors()->add('', '1度に借りられる図書は3冊までです。');
             }
-            // Rental が取得できて（貸し出されたことがある）返却済みの場合
-            if ($book->status() && !$book->status()->is_returned) {
+            if (!$book->canBeBorrowed()) {
                 $validator->errors()->add('', '選択された図書は既に貸出中です。');
             }
         });

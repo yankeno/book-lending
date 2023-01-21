@@ -50,14 +50,24 @@
                                             action="@if ($isBorrowingBook) {{ route('user.rental.return') }} @else {{ route('user.rental.checkout') }} @endif">
                                             @csrf
                                             <input type="hidden" value="{{ $book->id }}" name="bookId" />
-                                            <button id="checkout" type="submit"
-                                                class="bg-cyan-500 hover:bg-cyan-600 text-white  border-0 py-2 px-12 focus:outline-none  rounded mx-2 my-2">
-                                                @if ($isBorrowingBook)
+                                            @if ($isBorrowingBook)
+                                                <button id="procedure" type="submit"
+                                                    class="bg-cyan-500 hover:bg-cyan-600 text-white  border-0 py-2 px-12 focus:outline-none  rounded mx-2 my-2">
                                                     本を返却
+                                                </button>
+                                            @else
+                                                @if ($book->canBeBorrowed())
+                                                    <button id="procedure" type="submit"
+                                                        class="bg-cyan-500 hover:bg-cyan-600 text-white  border-0 py-2 px-12 focus:outline-none  rounded mx-2 my-2">
+                                                        本を借りる
+                                                    </button>
                                                 @else
-                                                    本を借りる
+                                                    <button type="button"
+                                                        class="bg-gray-400 text-white cursor-default border-0 py-2 px-12 rounded mx-2 my-2">
+                                                        本を借りる
+                                                    </button>
                                                 @endif
-                                            </button>
+                                            @endif
                                         </form>
                                         <button id="review"
                                             class="text-white bg-cyan-500 border-0 py-2 px-10 focus:outline-none hover:bg-cyan-600 rounded mx-2 my-2">

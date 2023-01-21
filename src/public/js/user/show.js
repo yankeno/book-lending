@@ -1,5 +1,5 @@
-const checkout = document.getElementById("checkout");
-checkout.addEventListener("click", (e) => {
+const procedure = document.getElementById("procedure");
+procedure.addEventListener("click", (e) => {
     if (!confirm(confirmMessage)) {
         e.preventDefault();
     }

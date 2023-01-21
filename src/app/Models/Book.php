@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class Book extends Model
 {
@@ -59,14 +60,14 @@ class Book extends Model
         return $query;
     }
 
-    public function scopeFilter($query, int $filter = null)
+    public function scopeFilter($query, string $filter)
     {
         $subRental = Rental::selectRaw('book_id, max(created_at) AS latest_rental_date')
+            ->isCheckedOut()
             ->groupBy('book_id');
 
         // 最新のレコードの状態が貸出中の book_id
         $bookIds = Rental::select('rentals.book_id')
-            ->isCheckedOut()
             ->joinSub($subRental, 'latest_rental', function ($join) {
                 $join->on('rentals.book_id', '=', 'latest_rental.book_id')
                     ->on('rentals.created_at', '=', 'latest_rental.latest_rental_date');
@@ -82,12 +83,15 @@ class Book extends Model
         }
     }
 
-    public function status(): ?Rental
+    public function canBeBorrowed(): bool
     {
-        return Rental::select(['checkout_date', 'return_date', 'is_returned'])
+        $rental = Rental::select('is_returned')
             ->where('book_id', $this->id)
             ->latest()
             ->first();
+
+        // 取得できない = 借りられたことがない
+        return $rental ? $rental->is_returned : true;
     }
 
     public function ratingAverage(): float
