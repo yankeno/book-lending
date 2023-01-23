@@ -9,6 +9,8 @@ use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\BookController;
+use App\Http\Controllers\Admin\RentalController;
 
 Route::get('/', function () {
     return view('admin.welcome');
@@ -17,6 +19,19 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
 })->middleware(['auth:admin'])->name('dashboard');
+
+Route::middleware('auth:admin')->group(function () {
+    Route::get('/', [BookController::class, 'index'])->name('book.index');
+    Route::get('/search', [BookController::class, 'search'])->name('book.search');
+    Route::get('/show/{bookId}', [BookController::class, 'show'])->name('book.show');
+
+    // Route::get('/mypage', [RentalController::class, 'mypage'])->name('rental.mypage');
+    // Route::post('/rental/checkout', [RentalController::class, 'checkout'])->name('rental.checkout');
+    // Route::post('/rental/return', [RentalController::class, 'return'])->name('rental.return');
+
+    // Route::get('/review/create/{bookId}', [ReviewController::class, 'create'])->name('review.create');
+    // Route::post('/review/store', [ReviewController::class, 'store'])->name('review.store');
+});
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])

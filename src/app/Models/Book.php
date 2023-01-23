@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use phpDocumentor\Reflection\Types\Boolean;
 
 class Book extends Model
 {
@@ -62,11 +61,12 @@ class Book extends Model
 
     public function scopeFilter($query, string $filter)
     {
+        // book ごとの最新のレコード
         $subRental = Rental::selectRaw('book_id, max(created_at) AS latest_rental_date')
             ->isCheckedOut()
             ->groupBy('book_id');
 
-        // 最新のレコードの状態が貸出中の book_id
+        // 最新のレコードの状態が貸出中の book_id を取得
         $bookIds = Rental::select('rentals.book_id')
             ->joinSub($subRental, 'latest_rental', function ($join) {
                 $join->on('rentals.book_id', '=', 'latest_rental.book_id')
@@ -105,5 +105,13 @@ class Book extends Model
     {
         return Review::where('book_id', $this->id)
             ->count();
+    }
+
+    public function borrower()
+    {
+        $rental = Rental::where('book_id', $this->id)
+            ->latest()
+            ->first();
+        return User::findOrFail($rental->user_id);
     }
 }

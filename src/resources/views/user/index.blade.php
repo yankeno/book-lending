@@ -58,11 +58,11 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     {{-- 新着図書表示（初回アクセス時） --}}
                     @isset($newBooks)
-                        <x-book-list :books="$newBooks" title="新着図書" />
+                        <x-user.book-list :books="$newBooks" title="新着図書" />
                     @endisset
                     {{-- 検索結果（検索実行時） --}}
                     @isset($books)
-                        <x-book-list :books="$books" title="検索結果" />
+                        <x-user.book-list :books="$books" title="検索結果" />
                     @endisset
                 </div>
             </div>
