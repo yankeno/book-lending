@@ -16,6 +16,9 @@ class Rental extends Model
         'checkout_date',
         'return_date',
     ];
+    protected $casts = [
+        'is_returned' => 'boolean',
+    ];
 
     public function book()
     {
@@ -25,5 +28,10 @@ class Rental extends Model
     public function scopeIsCheckedOut($query)
     {
         return $query->where('is_returned', 0);
+    }
+
+    public function scopeIsReturned($query)
+    {
+        return $query->where('is_returned', 1);
     }
 }

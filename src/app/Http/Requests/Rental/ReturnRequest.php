@@ -11,7 +11,7 @@ class ReturnRequest extends RentalRequest
     {
         $validator->after(function ($validator) {
             $user = Auth::user();
-            if (!$user->isBorrowing($this->input('bookId'))) {
+            if (!$user->isBorrowingBook($this->input('bookId'))) {
                 $validator->errors()->add('', '選択された図書は貸出されていません。');
             }
         });

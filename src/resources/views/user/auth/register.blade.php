@@ -30,6 +30,14 @@
                     required />
             </div>
 
+            <!-- Address -->
+            <div class="mt-4">
+                <x-label for="address" :value="__('Address')" />
+
+                <x-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')"
+                    required />
+            </div>
+
             <!-- Password -->
             <div class="mt-4">
                 <x-label for="password" :value="__('Password')" />
