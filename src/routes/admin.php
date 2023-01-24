@@ -23,14 +23,12 @@ Route::get('/dashboard', function () {
 Route::middleware('auth:admin')->group(function () {
     Route::get('/', [BookController::class, 'index'])->name('book.index');
     Route::get('/search', [BookController::class, 'search'])->name('book.search');
+    // Route::get('/create', [BookController::class, 'create'])->name('book.create');
+    // Route::post('/', [BookController::class, 'store'])->name('book.store');
     Route::get('/show/{bookId}', [BookController::class, 'show'])->name('book.show');
-
-    // Route::get('/mypage', [RentalController::class, 'mypage'])->name('rental.mypage');
-    // Route::post('/rental/checkout', [RentalController::class, 'checkout'])->name('rental.checkout');
-    // Route::post('/rental/return', [RentalController::class, 'return'])->name('rental.return');
-
-    // Route::get('/review/create/{bookId}', [ReviewController::class, 'create'])->name('review.create');
-    // Route::post('/review/store', [ReviewController::class, 'store'])->name('review.store');
+    Route::get('/edit/{bookId}', [BookController::class, 'edit'])->name('book.edit');
+    Route::post('/update/{bookId}', [BookController::class, 'update'])->name('book.update');
+    Route::delete('/destroy/{bookId}', [BookController::class, 'destroy'])->name('book.destroy');
 });
 
 Route::middleware('guest')->group(function () {

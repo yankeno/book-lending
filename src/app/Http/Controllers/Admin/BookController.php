@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Auth;
 use App\Models\Book;
 use App\Models\ParentCategory;
 use App\Http\Controllers\Controller;
@@ -44,13 +43,25 @@ class BookController extends Controller
 
     public function show($id)
     {
-        // $book = Book::with([
-        //     'authors:id,name',
-        //     'publisher:id,name',
-        //     'category:id,parent_category_id,name',
-        // ])
-        //     ->findOrFail($id);
-        // $isBorrowingBook = Auth::user()->isBorrowingBook($id);
-        // return view('user.show', compact(['book', 'isBorrowingBook']));
+        $book = Book::with([
+            'authors:id,name',
+            'publisher:id,name',
+            'category:id,parent_category_id,name',
+        ])
+            ->findOrFail($id);
+        return view('admin.show', compact(['book']));
+    }
+
+    public function edit($id)
+    {
+        return view('admin.edit');
+    }
+
+    public function update($id)
+    {
+    }
+
+    public function destroy($id)
+    {
     }
 }

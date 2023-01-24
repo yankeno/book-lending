@@ -46,34 +46,17 @@
                                         </h2>
                                     </div>
                                     <div class="flex flex-wrap py-2">
-                                        <form method="POST"
-                                            action="@if ($isBorrowingBook) {{ route('user.rental.return') }} @else {{ route('user.rental.checkout') }} @endif">
-                                            @csrf
-                                            <input type="hidden" value="{{ $book->id }}" name="bookId" />
-                                            @if ($isBorrowingBook)
-                                                <button id="procedure" type="submit"
-                                                    class="bg-cyan-500 hover:bg-cyan-600 text-white  border-0 py-2 px-12 focus:outline-none  rounded mx-2 my-2">
-                                                    本を返却
-                                                </button>
-                                            @else
-                                                @if ($book->canBeBorrowed())
-                                                    <button id="procedure" type="submit"
-                                                        class="bg-cyan-500 hover:bg-cyan-600 text-white  border-0 py-2 px-12 focus:outline-none  rounded mx-2 my-2">
-                                                        本を借りる
-                                                    </button>
-                                                @else
-                                                    <button type="button"
-                                                        class="bg-gray-400 text-white cursor-default border-0 py-2 px-12 rounded mx-2 my-2">
-                                                        本を借りる
-                                                    </button>
-                                                @endif
-                                            @endif
-                                        </form>
-                                        <button id="review"
-                                            class="text-white bg-cyan-500 border-0 py-2 px-10 focus:outline-none hover:bg-cyan-600 rounded mx-2 my-2">
-                                            <a
-                                                href="{{ route('user.review.create', ['bookId' => $book->id]) }}">レビューを書く</a>
+                                        <button id="edit"
+                                            class="bg-cyan-500 hover:bg-cyan-600 text-white  border-0 py-2 px-10 focus:outline-none  rounded mx-2 my-2">
+                                            <a href="{{ route('admin.book.edit', ['bookId' => $book->id]) }}">登録情報編集</a>
                                         </button>
+                                        <form method="DELETE"
+                                            action="{{ route('admin.book.destroy', ['bookId' => $book->id]) }}">
+                                            <button id="delete" type="submit"
+                                                class="text-white bg-rose-500 border-0 py-2 px-10 focus:outline-none hover:bg-rose-600 rounded mx-2 my-2">
+                                                削除
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -83,15 +66,6 @@
             </div>
         </div>
     </div>
-    @php
-        if ($isBorrowingBook) {
-            $confirmMessage = '図書を返却しますか？';
-        } else {
-            $confirmMessage = 'この本を借りますか？\n1度に借りられるのは3冊までです。';
-        }
-    @endphp
-    <script>
-        const confirmMessage = "<?php echo $confirmMessage; ?>";
-    </script>
+
     <script src="{{ asset('js/user/show.js') }}" defer></script>
 </x-app-layout>
