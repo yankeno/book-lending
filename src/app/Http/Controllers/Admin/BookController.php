@@ -54,7 +54,15 @@ class BookController extends Controller
 
     public function edit($id)
     {
-        return view('admin.edit');
+        $book = Book::with([
+            'authors:id,name',
+            'publisher:id,name',
+            'category:id,parent_category_id,name',
+        ])
+            ->findOrFail($id);
+        $parentCategories = ParentCategory::with('categories')
+            ->get();
+        return view('admin.edit', compact(['book', 'parentCategories']));
     }
 
     public function update($id)

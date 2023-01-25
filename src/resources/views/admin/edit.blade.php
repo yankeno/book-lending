@@ -19,7 +19,7 @@
                 <div>
                     <x-label for="title" :value="__('タイトル')" />
 
-                    <x-input id="title" class="block mt-1 w-full" type="text" name="name" :value="old('title')"
+                    <x-input id="title" class="block mt-1 w-full" type="text" name="name" :value="old('title', $book->title)"
                         required autofocus />
                 </div>
 
@@ -41,26 +41,13 @@
 
                     <select name="category" id="category"
                         class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                        <optgroup label="文学・評論">
-                            <option value="1">
-                                文芸作品
-                            </option>
-                            <option value="2">
-                                歴史・時代小説
-                            </option>
-                            <option value="3">
-                                経済・社会小説
-                            </option>
-                        <optgroup label="社会・政治">
-                            <option value="14">
-                                政治
-                            </option>
-                            <option value="15">
-                                外交・国際関係
-                            </option>
-                            <option value="16">
-                                軍事
-                            </option>
+                        @foreach ($parentCategories as $parentCategory)
+                            @foreach ($parentCategory->categories as $category)
+                                <option value="{{ $category->id }}">
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        @endforeach
                     </select>
                 </div>
 

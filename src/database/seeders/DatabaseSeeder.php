@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\AuthorBook;
 use App\Models\Book;
+use App\Models\Publisher;
 use App\Models\Rental;
 use App\Models\Review;
 use App\Models\User;
@@ -34,5 +35,6 @@ class DatabaseSeeder extends Seeder
         AuthorBook::factory(1000)->create();
         Review::factory(1000)->create();
         Rental::factory(1000)->create();
+        Publisher::factory(1000)->create();
     }
 }

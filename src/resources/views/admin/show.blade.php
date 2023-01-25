@@ -47,8 +47,9 @@
                                     </div>
                                     <div class="flex flex-wrap py-2">
                                         <button id="edit"
-                                            class="bg-cyan-500 hover:bg-cyan-600 text-white  border-0 py-2 px-10 focus:outline-none  rounded mx-2 my-2">
-                                            <a href="{{ route('admin.book.edit', ['bookId' => $book->id]) }}">登録情報編集</a>
+                                            class="bg-cyan-500 hover:bg-cyan-600 text-white border-0 focus:outline-none rounded mx-2 my-2">
+                                            <a href="{{ route('admin.book.edit', ['bookId' => $book->id]) }}"
+                                                class="block py-2 px-10">登録情報編集</a>
                                         </button>
                                         <form method="DELETE"
                                             action="{{ route('admin.book.destroy', ['bookId' => $book->id]) }}">

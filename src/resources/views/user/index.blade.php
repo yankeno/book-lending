@@ -33,7 +33,7 @@
                 <div class="flex">
                     <div>
                         <span class="text-sm">絞り込み<br></span>
-                        <select name="filter" id="filter" class="mr-4">
+                        <select name="filter" id="filter" class="mr-4 text-gray-500">
                             <option value="0">
                                 全て
                             </option>
