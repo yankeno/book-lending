@@ -6,18 +6,19 @@
         <form method="get" action="{{ route('user.book.search') }}">
             <div class="lg:flex lg:justify-around">
                 <div class="lg:flex items-center mx-auto">
-                    <select name="category" id="category" class="mb-2 lg:mb-0 lg:mr-2">
-                        <option value="0" @if (\Request::get('category') === '0') selected @endif>全て</option>
-                        @foreach ($parentCategories as $parentCategory)
-                            <optgroup label="{{ $parentCategory->name }}">
+                    <div class="w-80 mr-5">
+                        <select name="category" id="book-category" class="mb-2 lg:mb-0 lg:mr-2">
+                            <option value="0" @if (\Request::get('category') === '0') selected @endif>全て</option>
+                            @foreach ($parentCategories as $parentCategory)
                                 @foreach ($parentCategory->categories as $category)
                                     <option value="{{ $category->id }}"
                                         @if ((int) \Request::get('category') === $category->id) selected @endif>
                                         {{ $category->name }}
                                     </option>
                                 @endforeach
-                        @endforeach
-                    </select>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="flex space-x-2 items-center">
                         <div>
                             <input name="keyword" class="border-gray-500 py-2" type="text" placeholder="キーワードを入力">

@@ -17,7 +17,8 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('admin.dashboard');
+    // return view('admin.dashboard');
+    phpinfo();
 })->middleware(['auth:admin'])->name('dashboard');
 
 Route::middleware('auth:admin')->group(function () {

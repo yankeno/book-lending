@@ -10,7 +10,7 @@ use Auth;
 
 class ReviewController extends Controller
 {
-    public function create($id)
+    public function create(int $id)
     {
         $book = Book::findOrFail($id);
         return view('user.review', compact('book'));

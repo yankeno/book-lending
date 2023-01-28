@@ -41,7 +41,7 @@ class BookController extends Controller
         return view('admin.index', compact(['books', 'parentCategories']));
     }
 
-    public function show($id)
+    public function show(int $id)
     {
         $book = Book::with([
             'authors:id,name',
@@ -52,7 +52,7 @@ class BookController extends Controller
         return view('admin.show', compact(['book']));
     }
 
-    public function edit($id)
+    public function edit(int $id)
     {
         $book = Book::with([
             'authors:id,name',
@@ -65,7 +65,7 @@ class BookController extends Controller
         return view('admin.edit', compact(['book', 'parentCategories']));
     }
 
-    public function update($id)
+    public function update(int $id)
     {
     }
 

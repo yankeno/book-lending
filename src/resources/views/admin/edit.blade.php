@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            図書登録
+            図書情報更新
         </h2>
     </x-slot>
 
@@ -39,26 +39,24 @@
                 <div class="mt-4">
                     <x-label for="password" :value="__('カテゴリ')" />
 
-                    <select name="category" id="category"
+                    <select name="category" id="book-category"
                         class="block mt-1 w-full rounded-md shadow-sm border-gray-300">
                         @foreach ($parentCategories as $parentCategory)
-                            <optgroup label="{{ $parentCategory->name }}">
-                                @foreach ($parentCategory->categories as $category)
-                                    <option value="{{ $category->id }}"
-                                        @if ($book->category_id === $category->id) selected @endif>
-                                        {{ $category->name }}
-                                    </option>
-                                @endforeach
+                            @foreach ($parentCategory->categories as $category)
+                                <option value="{{ $category->id }}" @if ($book->category_id === $category->id) selected @endif>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
                         @endforeach
                     </select>
                 </div>
 
-                <!-- 出版日 -->
+                <!-- Published date -->
                 <div class="mt-4">
                     <x-label for="published-date" :value="__('出版日')" />
 
                     <x-input id="published-date" class="block mt-1 w-full" type="date" name="published-date"
-                        value="{{ $book->published_date->format('Y-m-d') }}" required />
+                        value="{{ old('published-date', $book->published_date->format('Y-m-d')) }}" required />
                 </div>
 
                 <!-- ISBN-13 -->
@@ -66,18 +64,19 @@
                     <x-label for="isbn-13" :value="__('ISBN-13')" />
 
                     <x-input id="isbn-13" class="block mt-1 w-full" type="text" name="isbn-13"
-                        value="{{ $book->isbn_13 }}" required />
+                        value="{{ old('isbn-13', $book->isbn_13) }}" required />
                 </div>
 
-                <!-- 画像 -->
+                <!-- Image -->
                 <div class="mt-4">
                     <x-label for="image" :value="__('画像')" />
 
                     <input id="image" class="block mt-1 w-full" type="file" name="image"
                         accept=".jpg, .jpeg, .png" required />
-                    <figure id="figure" style="display: none" class="text-gray-500 mx-auto my-5">
+                    <figure id="figure" class="text-gray-500 mx-auto my-5">
                         <figcaption>プレビュー</figcaption>
-                        <img src="" alt="" id="figureImage" style="max-width: 100%">
+                        <img src="{{ asset('storage/books/' . $book->image) }}" alt="" id="figureImage"
+                            class="h-36">
                     </figure>
                 </div>
 
@@ -95,11 +94,10 @@
             const figure = document.getElementById('figure');
             const figureImage = document.getElementById('figureImage');
 
-            input.addEventListener('change', (event) => { // <1>
+            input.addEventListener('change', (event) => {
                 const file = event.target.files[0];
 
                 if (file) {
-                    figureImage.height = 100;
                     figureImage.setAttribute('src', URL.createObjectURL(file));
                     figure.style.display = 'block';
                 } else {
