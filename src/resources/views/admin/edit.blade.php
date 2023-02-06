@@ -11,7 +11,7 @@
             <!-- Validation Errors -->
             <x-register-validation-errors class="mb-4" :errors="$errors" />
 
-            <form method="POST" action="{{ route('admin.book.update', 1) }}">
+            <form method="POST" action="{{ route('admin.book.update', 1) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -19,7 +19,7 @@
                 <div>
                     <x-label for="title" :value="__('タイトル')" />
 
-                    <x-input id="title" class="block mt-1 w-full" type="text" name="name" :value="old('title', $book->title)"
+                    <x-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title', $book->title)"
                         required autofocus />
                 </div>
 
@@ -42,11 +42,14 @@
                     <select name="category" id="book-category"
                         class="block mt-1 w-full rounded-md shadow-sm border-gray-300">
                         @foreach ($parentCategories as $parentCategory)
-                            @foreach ($parentCategory->categories as $category)
-                                <option value="{{ $category->id }}" @if ($book->category_id === $category->id) selected @endif>
-                                    {{ $category->name }}
-                                </option>
-                            @endforeach
+                            <optgroup label="{{ $parentCategory->name }}">
+                                @foreach ($parentCategory->categories as $category)
+                                    <option value="{{ $category->id }}"
+                                        @if ($book->category_id === $category->id) selected @endif>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </optgroup>
                         @endforeach
                     </select>
                 </div>
@@ -72,7 +75,7 @@
                     <x-label for="image" :value="__('画像')" />
 
                     <input id="image" class="block mt-1 w-full" type="file" name="image"
-                        accept=".jpg, .jpeg, .png" required />
+                        accept=".jpg, .jpeg, .png" />
                     <figure id="figure" class="text-gray-500 mx-auto my-5">
                         <figcaption>プレビュー</figcaption>
                         <img src="{{ asset('storage/books/' . $book->image) }}" alt="" id="figureImage"

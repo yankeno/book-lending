@@ -10,7 +10,6 @@ use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BookController;
-use App\Http\Controllers\Admin\RentalController;
 
 Route::get('/', function () {
     return view('admin.welcome');
@@ -28,7 +27,7 @@ Route::middleware('auth:admin')->group(function () {
     // Route::post('/', [BookController::class, 'store'])->name('book.store');
     Route::get('/show/{bookId}', [BookController::class, 'show'])->name('book.show');
     Route::get('/edit/{bookId}', [BookController::class, 'edit'])->name('book.edit');
-    Route::post('/update/{bookId}', [BookController::class, 'update'])->name('book.update');
+    Route::put('/update/{bookId}', [BookController::class, 'update'])->name('book.update');
     Route::delete('/destroy/{bookId}', [BookController::class, 'destroy'])->name('book.destroy');
 });
 

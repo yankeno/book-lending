@@ -4,7 +4,7 @@ namespace App\Http\Requests\Book;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class BookUpdateRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,22 @@ class BookUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required|string',
+            'publisher' => 'required|integer|exists:publishers,id',
+            'category' => 'required|integer|exists:categories,id',
+            'published-date' => 'required|date',
+            'isbn-13' => 'required|string',
+            'image' => 'image|mimes:jpg,jpeg,png|max:2048',
+            'inputFile' => 'max:2048',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'image' => '指定されたファイルが画像ではありません。',
+            'mines' => '指定された拡張子（jpg/jpeg/png）ではありません。',
+            'max' => 'ファイルサイズは2MB以内にしてください。',
         ];
     }
 }

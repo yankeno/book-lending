@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\ParentCategory;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Book\BookUpdateRequest;
+use App\Http\Requests\Book\UpdateRequest;
 
 class BookController extends Controller
 {
@@ -65,8 +67,9 @@ class BookController extends Controller
         return view('admin.edit', compact(['book', 'parentCategories']));
     }
 
-    public function update(int $id)
+    public function update(int $id, UpdateRequest $request)
     {
+        dd($request);
     }
 
     public function destroy($id)
