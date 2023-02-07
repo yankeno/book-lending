@@ -9,14 +9,27 @@ use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\BookController;
 
 Route::get('/', function () {
     return view('admin.welcome');
 });
 
 Route::get('/dashboard', function () {
-    return view('admin.dashboard');
+    // return view('admin.dashboard');
+    phpinfo();
 })->middleware(['auth:admin'])->name('dashboard');
+
+Route::middleware('auth:admin')->group(function () {
+    Route::get('/', [BookController::class, 'index'])->name('book.index');
+    Route::get('/search', [BookController::class, 'search'])->name('book.search');
+    // Route::get('/create', [BookController::class, 'create'])->name('book.create');
+    // Route::post('/', [BookController::class, 'store'])->name('book.store');
+    Route::get('/show/{bookId}', [BookController::class, 'show'])->name('book.show');
+    Route::get('/edit/{bookId}', [BookController::class, 'edit'])->name('book.edit');
+    Route::put('/update/{bookId}', [BookController::class, 'update'])->name('book.update');
+    Route::delete('/destroy/{bookId}', [BookController::class, 'destroy'])->name('book.destroy');
+});
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])

@@ -41,7 +41,7 @@ class BookController extends Controller
         return view('user.index', compact(['books', 'parentCategories']));
     }
 
-    public function show($id)
+    public function show(int $id)
     {
         $book = Book::with([
             'authors:id,name',
