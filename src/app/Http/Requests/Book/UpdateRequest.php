@@ -27,8 +27,8 @@ class UpdateRequest extends FormRequest
             'title' => 'required|string',
             'publisher' => 'required|integer|exists:publishers,id',
             'category' => 'required|integer|exists:categories,id',
-            'published-date' => 'required|date',
-            'isbn-13' => 'required|string',
+            'published_date' => 'required|date',
+            'isbn_13' => 'required|string',
             'image' => 'image|mimes:jpg,jpeg,png|max:2048',
             'inputFile' => 'max:2048',
         ];

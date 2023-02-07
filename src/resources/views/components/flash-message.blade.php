@@ -8,7 +8,7 @@
     }
 @endphp
 @if (session('message'))
-    <div class="{{ $textColor }} w-1/4 mx-auto my-1 text-lg">
+    <div class="{{ $textColor }} mx-auto my-1 text-lg">
         {{ session('message') }}
     </div>
 @endif

@@ -7,7 +7,7 @@
             <div class="lg:flex lg:justify-around">
                 <div class="lg:flex items-center mx-auto">
                     <div class="w-80 mr-5">
-                        <select name="category" id="book-category" class="mb-2 lg:mb-0 lg:mr-2">
+                        <select name="category" id="book-category-choices" class="mb-2 lg:mb-0 lg:mr-2">
                             <optgroup>
                                 <option value="0" @if (\Request::get('category') === '0') selected @endif>全て</option>
                             </optgroup>

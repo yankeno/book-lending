@@ -8,6 +8,8 @@ use App\Models\ParentCategory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Book\BookUpdateRequest;
 use App\Http\Requests\Book\UpdateRequest;
+use App\Models\Publisher;
+use App\Services\ImageService;
 
 class BookController extends Controller
 {
@@ -64,12 +66,27 @@ class BookController extends Controller
             ->findOrFail($id);
         $parentCategories = ParentCategory::with('categories')
             ->get();
-        return view('admin.edit', compact(['book', 'parentCategories']));
+        $publishers = Publisher::get();
+        return view('admin.edit', compact(['book', 'parentCategories', 'publishers']));
     }
 
     public function update(int $id, UpdateRequest $request)
     {
-        dd($request);
+        $book = Book::findOrFail($id);
+        $fileNameToStore = ImageService::upload($request->file('image'), 'books');
+        $book->update([
+            'publisher_id' => $request->publisher,
+            'caategory_id' => $request->category,
+            'title' => $request->title,
+            'isbn_13' => $request->isbn_13,
+            'image' => $fileNameToStore === '' ? $book->image : $fileNameToStore,
+            'published_date' => $request->published_date,
+        ]);
+        return redirect()->route('admin.book.edit', ['bookId' => $id])
+            ->with([
+                'message' => '図書情報を編集しました。',
+                'status' => 'info',
+            ]);
     }
 
     public function destroy($id)

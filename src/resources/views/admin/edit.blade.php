@@ -10,8 +10,10 @@
 
             <!-- Validation Errors -->
             <x-register-validation-errors class="mb-4" :errors="$errors" />
+            <x-flash-message status="{{ session('status') }}" />
 
-            <form method="POST" action="{{ route('admin.book.update', 1) }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('admin.book.update', ['bookId' => $book->id]) }}"
+                enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -27,11 +29,11 @@
                 <div class="mt-4">
                     <x-label for="publisher" :value="__('出版社')" />
 
-                    <select name="publisher" id="publisher"
+                    <select name="publisher" id="book-publisher-choices"
                         class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                        <option value="1">オライリージャパン</option>
-                        <option value="2">角川文庫</option>
-                        <option value="3">サンマーク出版</option>
+                        @foreach ($publishers as $publisher)
+                            <option value="{{ $publisher->id }}">{{ $publisher->name }}</option>
+                        @endforeach
                     </select>
                 </div>
 
@@ -39,7 +41,7 @@
                 <div class="mt-4">
                     <x-label for="password" :value="__('カテゴリ')" />
 
-                    <select name="category" id="book-category"
+                    <select name="category" id="book-category-choices"
                         class="block mt-1 w-full rounded-md shadow-sm border-gray-300">
                         @foreach ($parentCategories as $parentCategory)
                             <optgroup label="{{ $parentCategory->name }}">
@@ -56,18 +58,18 @@
 
                 <!-- Published date -->
                 <div class="mt-4">
-                    <x-label for="published-date" :value="__('出版日')" />
+                    <x-label for="published_date" :value="__('出版日')" />
 
-                    <x-input id="published-date" class="block mt-1 w-full" type="date" name="published-date"
-                        value="{{ old('published-date', $book->published_date->format('Y-m-d')) }}" required />
+                    <x-input id="published-date" class="block mt-1 w-full" type="date" name="published_date"
+                        value="{{ old('published_date', $book->published_date->format('Y-m-d')) }}" required />
                 </div>
 
                 <!-- ISBN-13 -->
                 <div class="mt-4">
-                    <x-label for="isbn-13" :value="__('ISBN-13')" />
+                    <x-label for="isbn_13" :value="__('ISBN-13')" />
 
-                    <x-input id="isbn-13" class="block mt-1 w-full" type="text" name="isbn-13"
-                        value="{{ old('isbn-13', $book->isbn_13) }}" required />
+                    <x-input id="isbn-13" class="block mt-1 w-full" type="text" name="isbn_13"
+                        value="{{ old('isbn_13', $book->isbn_13) }}" required />
                 </div>
 
                 <!-- Image -->

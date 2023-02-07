@@ -14,6 +14,12 @@ class Book extends Model
         'published_date',
     ];
 
+    protected $guarded = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     public function publisher()
     {
         return $this->belongsTo(Publisher::class);

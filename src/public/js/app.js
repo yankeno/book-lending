@@ -5100,18 +5100,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var choices_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! choices.js */ "./node_modules/choices.js/public/assets/scripts/choices.js");
 /* harmony import */ var choices_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(choices_js__WEBPACK_IMPORTED_MODULE_0__);
 
+var ids = ["book-category-choices", "book-publisher-choices"];
 document.addEventListener("DOMContentLoaded", function () {
-  var element = document.getElementById("book-category");
-  if (element) {
-    return new (choices_js__WEBPACK_IMPORTED_MODULE_0___default())(element, {
-      removeItemButton: true,
-      allowHTML: true,
-      searchResultLimit: 10,
-      searchPlaceholderValue: "検索ワード",
-      noResultsText: "一致する情報は見つかりません",
-      itemSelectText: "選択"
-    });
-  }
+  ids.forEach(function (id) {
+    var element = document.getElementById(id);
+    if (element) {
+      return new (choices_js__WEBPACK_IMPORTED_MODULE_0___default())(element, {
+        removeItemButton: true,
+        allowHTML: true,
+        searchResultLimit: 100,
+        searchPlaceholderValue: "検索ワード",
+        noResultsText: "一致する情報は見つかりません",
+        itemSelectText: "選択"
+      });
+    }
+  });
 });
 
 /***/ }),
