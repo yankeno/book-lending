@@ -55,6 +55,7 @@
                 </div>
             </div>
         </form>
+        <x-flash-message status="{{ session('status') }}" />
     </x-slot>
 
     <div class="py-12">
