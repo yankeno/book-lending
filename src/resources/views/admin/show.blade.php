@@ -51,8 +51,10 @@
                                             <a href="{{ route('admin.book.edit', ['bookId' => $book->id]) }}"
                                                 class="block py-2 px-10">登録情報編集</a>
                                         </button>
-                                        <form method="DELETE"
+                                        <form method="POST"
                                             action="{{ route('admin.book.destroy', ['bookId' => $book->id]) }}">
+                                            @csrf
+                                            @method('DELETE')
                                             <button id="delete" type="submit"
                                                 class="text-white bg-rose-500 border-0 py-2 px-10 focus:outline-none hover:bg-rose-600 rounded mx-2 my-2">
                                                 削除
@@ -68,5 +70,5 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/user/show.js') }}" defer></script>
+    <script src="{{ asset('js/admin/show.js') }}" defer></script>
 </x-app-layout>

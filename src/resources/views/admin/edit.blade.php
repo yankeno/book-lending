@@ -32,7 +32,9 @@
                     <select name="publisher" id="book-publisher-choices"
                         class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                         @foreach ($publishers as $publisher)
-                            <option value="{{ $publisher->id }}">{{ $publisher->name }}</option>
+                            <option value="{{ $publisher->id }}" @if ($publisher->id === $book->publisher->id) selected @endif>
+                                {{ $publisher->name }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
@@ -86,6 +88,10 @@
                 </div>
 
                 <div class="flex items-center justify-end mt-4">
+                    <button class="ml-4" type="button">
+                        <a href="{{ route('admin.book.show', ['bookId' => $book->id]) }}"
+                            class='inline-flex items-center px-4 py-2 bg-gray-400 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-500 active:bg-gray-600 focus:outline-none focus:border-gray-600 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150'>戻る</a>
+                    </button>
                     <x-button class="ml-4">
                         {{ __('更新') }}
                     </x-button>

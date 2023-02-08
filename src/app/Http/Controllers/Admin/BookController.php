@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\ParentCategory;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Book\BookUpdateRequest;
 use App\Http\Requests\Book\UpdateRequest;
 use App\Models\Publisher;
 use App\Services\ImageService;
@@ -76,7 +75,7 @@ class BookController extends Controller
         $fileNameToStore = ImageService::upload($request->file('image'), 'books');
         $book->update([
             'publisher_id' => $request->publisher,
-            'caategory_id' => $request->category,
+            'category_id' => $request->category,
             'title' => $request->title,
             'isbn_13' => $request->isbn_13,
             'image' => $fileNameToStore === '' ? $book->image : $fileNameToStore,
@@ -91,5 +90,12 @@ class BookController extends Controller
 
     public function destroy($id)
     {
+        $book = Book::findOrFail($id);
+        $book->delete();
+        return redirect()->route('admin.book.index')
+            ->with([
+                'message' => '図書を削除しました。',
+                'status' => 'alert',
+            ]);
     }
 }
