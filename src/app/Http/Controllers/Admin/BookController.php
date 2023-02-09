@@ -21,7 +21,7 @@ class BookController extends Controller
             ->paginate(50);
         $parentCategories = ParentCategory::with('categories')
             ->get();
-        return view('admin.index', compact(['books', 'parentCategories']));
+        return view('admin.book.index', compact(['books', 'parentCategories']));
     }
 
     public function search(Request $request)
@@ -41,7 +41,7 @@ class BookController extends Controller
         $books = $booksQuery->paginate(50);
         $parentCategories = ParentCategory::with('categories')
             ->get();
-        return view('admin.index', compact(['books', 'parentCategories']));
+        return view('admin.book.index', compact(['books', 'parentCategories']));
     }
 
     public function show(int $id)
@@ -52,7 +52,7 @@ class BookController extends Controller
             'category:id,parent_category_id,name',
         ])
             ->findOrFail($id);
-        return view('admin.show', compact(['book']));
+        return view('admin.book.show', compact(['book']));
     }
 
     public function edit(int $id)
@@ -66,7 +66,7 @@ class BookController extends Controller
         $parentCategories = ParentCategory::with('categories')
             ->get();
         $publishers = Publisher::get();
-        return view('admin.edit', compact(['book', 'parentCategories', 'publishers']));
+        return view('admin.book.edit', compact(['book', 'parentCategories', 'publishers']));
     }
 
     public function update(int $id, UpdateRequest $request)

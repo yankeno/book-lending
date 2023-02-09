@@ -10,14 +10,14 @@ use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BookController;
+use App\Http\Controllers\Admin\UserController;
 
 Route::get('/', function () {
     return view('admin.welcome');
 });
 
 Route::get('/dashboard', function () {
-    // return view('admin.dashboard');
-    phpinfo();
+    return view('admin.dashboard');
 })->middleware(['auth:admin'])->name('dashboard');
 
 Route::middleware('auth:admin')->group(function () {
@@ -29,6 +29,8 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('/edit/{bookId}', [BookController::class, 'edit'])->name('book.edit');
     Route::put('/update/{bookId}', [BookController::class, 'update'])->name('book.update');
     Route::delete('/destroy/{bookId}', [BookController::class, 'destroy'])->name('book.destroy');
+
+    Route::get('/user', [UserController::class, 'index'])->name('user.index');
 });
 
 Route::middleware('guest')->group(function () {
