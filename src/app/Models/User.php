@@ -51,6 +51,11 @@ class User extends Authenticatable
             ->as('rentals');
     }
 
+    public function rentals()
+    {
+        return $this->hasMany(Rental::class);
+    }
+
     /**
      * 貸出中の本をカウント
      *

@@ -4,20 +4,24 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     public function index()
     {
-        $users = User::with('books')->get();
-        // foreach ($users as $user) {
-        //     // foreach ($user->books as $book) {
-        //     //     var_dump($book->rentals->checkout_date);
-        //     // }
-        //     var_dump($user->books->first()->rentals->checkout_date);
-        // }
-        // dd($users->first()->books->first()->rentals->first());
-        return view('admin.user.index');
+        $users = User::withCount([
+            'rentals as borrowing_count' => function (Builder $query) {
+                $query->where('is_returned', 0);
+            },
+            'rentals as arrears_count' => function (Builder $query) {
+                $query->where('is_returned', 0)
+                    ->where('return_date', '<', now()->format('Y-m-d'));
+            }
+        ])
+            ->orderBy('id')
+            ->get();
+        return view('admin.user.index', compact('users'));
     }
 }

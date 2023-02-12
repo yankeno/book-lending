@@ -23,8 +23,22 @@
                 </div>
                 <div class="flex">
                     <div>
-                        <span class="text-sm">絞り込み<br></span>
-                        <select name="filter" id="filter" class="mr-4 text-gray-700">
+                        <span class="text-sm">アカウント状況<br></span>
+                        <select name="account" id="account" class="mr-4 text-gray-700 w-32">
+                            <option value="0">
+                                全て
+                            </option>
+                            <option value="1">
+                                有効
+                            </option>
+                            <option value="2">
+                                無効
+                            </option>
+                        </select>
+                    </div>
+                    <div>
+                        <span class="text-sm">延滞状況<br></span>
+                        <select name="arrears" id="arrears" class="mr-4 text-gray-700 w-32">
                             <option value="0">
                                 全て
                             </option>
@@ -46,43 +60,54 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <div class="font-semibold text-xl text-gray-800 pb-2 border-b border-gray-200 flex">
-                        ユーザ一覧
+                    <div class="flex items-center pb-2 border-b">
+                        <div class="font-semibold text-xl text-gray-800  border-gray-200 flex">
+                            ユーザ一覧
+                        </div>
+                        <div class="ml-auto">
+                            <button
+                                class="text-white bg-emerald-400 border-0 py-1 px-4 focus:outline-none hover:bg-emerald-500 rounded">
+                                再開
+                            </button>
+                            <button
+                                class="text-white bg-rose-400 border-0 py-1 px-4 focus:outline-none hover:bg-rose-500 rounded">
+                                停止
+                            </button>
+                        </div>
                     </div>
                     <ul class="max-w-full divide-y divide-gray-100 dark:divide-gray-200 border-b border-gray-200">
-                        {{-- @if ($books->isEmpty())
+                        @foreach ($users as $user)
                             <li class="py-3 sm:pb-4">
-                                <span>該当する図書はありません。</span>
-                            </li>
-                        @endif --}}
-                        <li class="py-3 sm:pb-4">
-                            <div class="grid-cols-3 gap-6 flex items-center">
-                                <input type="checkbox" value="1">
-                                <a href=""
-                                    class="grid-cols-4 gap-16 flex items-center text-base text-gray-700 truncate hover:text-orange-500">
-                                    <div id="user_id">
-                                        123
+                                <div class="grid grid-cols-12 gap-1 items-center">
+                                    <div class="col-span-1 flex justify-center">
+                                        <input type="checkbox" name="select" class="mr-5">
                                     </div>
-                                    <div>
-                                        松本 人志
-                                    </div>
-                                    <div>
-                                        test@test.com
-                                    </div>
-                                    <div>
-                                        東京都千代田区飯田橋1-2-3
-                                    </div>
-                                </a>
-                                <div class="ml-auto text-gray-700 items-center text-xs font-semibold">
-                                    <div>
-                                        3冊 貸出中
-                                    </div>
-                                    <div>
-                                        1冊 延滞中
+                                    <a href=""
+                                        class="grid grid-cols-12 gap-16 items-center text-base text-gray-700 truncate hover:text-orange-500 col-span-10">
+                                        <div name="user_id" class="col-span-1">
+                                            {{ $user->id }}
+                                        </div>
+                                        <div name="name" class="col-span-2">
+                                            {{ $user->name }}
+                                        </div>
+                                        <div name="email" class="col-span-4">
+                                            {{ $user->email }}
+                                        </div>
+                                        <div name="address" class="col-span-5">
+                                            {{ $user->address }}
+                                        </div>
+                                    </a>
+                                    <div class="ml-auto text-gray-700 items-center text-xs font-semibold col-span-1">
+                                        <div>
+                                            {{ $user->borrowing_count }}冊 貸出中
+                                        </div>
+                                        <div>
+                                            {{ $user->arrears_count }}冊 延滞中
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
