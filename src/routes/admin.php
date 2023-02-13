@@ -21,16 +21,20 @@ Route::get('/dashboard', function () {
 })->middleware(['auth:admin'])->name('dashboard');
 
 Route::middleware('auth:admin')->group(function () {
-    Route::get('/', [BookController::class, 'index'])->name('book.index');
-    Route::get('/search', [BookController::class, 'search'])->name('book.search');
-    // Route::get('/create', [BookController::class, 'create'])->name('book.create');
-    // Route::post('/', [BookController::class, 'store'])->name('book.store');
-    Route::get('/show/{bookId}', [BookController::class, 'show'])->name('book.show');
-    Route::get('/edit/{bookId}', [BookController::class, 'edit'])->name('book.edit');
-    Route::put('/update/{bookId}', [BookController::class, 'update'])->name('book.update');
-    Route::delete('/destroy/{bookId}', [BookController::class, 'destroy'])->name('book.destroy');
+    Route::name('book.')->group(function () {
+        Route::get('/', [BookController::class, 'index'])->name('index');
+        Route::get('/search', [BookController::class, 'search'])->name('search');
+        Route::get('/show/{bookId}', [BookController::class, 'show'])->name('show');
+        Route::get('/edit/{bookId}', [BookController::class, 'edit'])->name('edit');
+        Route::put('/update/{bookId}', [BookController::class, 'update'])->name('update');
+        Route::delete('/destroy/{bookId}', [BookController::class, 'destroy'])->name('destroy');
+    });
 
-    Route::get('/user', [UserController::class, 'index'])->name('user.index');
+    Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
+        Route::get('/', [UserController::class, 'index'])->name('index');
+        Route::get('/search', [UserController::class, 'search'])->name('search');
+        Route::get('/show', [UserController::class, 'show'])->name('show');
+    });
 });
 
 Route::middleware('guest')->group(function () {

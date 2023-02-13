@@ -3,7 +3,7 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('ユーザ検索') }}
         </h2>
-        <form method="get" action="{{ route('admin.book.search') }}">
+        <form method="get" action="{{ route('admin.user.search') }}">
             <div class="lg:flex lg:justify-around">
                 <div class="lg:flex items-center mx-auto">
                     <div class="flex space-x-2 items-center">
@@ -25,13 +25,15 @@
                     <div>
                         <span class="text-sm">アカウント状況<br></span>
                         <select name="account" id="account" class="mr-4 text-gray-700 w-32">
-                            <option value="0">
+                            <option value="{{ \Constant::ALL_ACCOUNT }}">
                                 全て
                             </option>
-                            <option value="1">
+                            <option value="{{ \Constant::IS_ACTIVE }}"
+                                @if (\Request::get('account') === \Constant::IS_ACTIVE) selected @endif>
                                 有効
                             </option>
-                            <option value="2">
+                            <option value="{{ \Constant::IS_NOT_ACTIVE }}"
+                                @if (\Request::get('account') === \Constant::IS_NOT_ACTIVE) selected @endif>
                                 無効
                             </option>
                         </select>
@@ -39,13 +41,15 @@
                     <div>
                         <span class="text-sm">延滞状況<br></span>
                         <select name="arrears" id="arrears" class="mr-4 text-gray-700 w-32">
-                            <option value="0">
+                            <option value="{{ \Constant::ALL_LENDING }}">
                                 全て
                             </option>
-                            <option value="1">
+                            <option value="{{ \Constant::HAS_OVERDUE }}"
+                                @if (\Request::get('arrears') === \Constant::HAS_OVERDUE) selected @endif>
                                 延滞あり
                             </option>
-                            <option value="2">
+                            <option value="{{ \Constant::NOT_HAS_OVERDUE }}"
+                                @if (\Request::get('arrears') === \Constant::NOT_HAS_OVERDUE) selected @endif>
                                 延滞なし
                             </option>
                         </select>
@@ -60,7 +64,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <div class="flex items-center pb-2 border-b">
+                    <div class="lg:flex items-center pb-2 border-b">
                         <div class="font-semibold text-xl text-gray-800  border-gray-200 flex">
                             ユーザ一覧
                         </div>
@@ -76,6 +80,11 @@
                         </div>
                     </div>
                     <ul class="max-w-full divide-y divide-gray-100 dark:divide-gray-200 border-b border-gray-200">
+                        @if ($users->isEmpty())
+                            <li class="py-3 sm:pb-4">
+                                <span>該当するユーザは存在しません。</span>
+                            </li>
+                        @endif
                         @foreach ($users as $user)
                             <li class="py-3 sm:pb-4">
                                 <div class="grid grid-cols-12 gap-1 items-center">
@@ -109,8 +118,16 @@
                             </li>
                         @endforeach
                     </ul>
+
                 </div>
             </div>
+        </div>
+        <div class="mx-auto sm:px-6 lg:px-8 mt-6">
+            {{ $users->appends([
+                    'pagination' => \Request::get('pagination'),
+                    'account' => \Request::get('account'),
+                    'arrears' => \Request::get('arrears'),
+                ])->links() }}
         </div>
     </div>
 </x-app-layout>
