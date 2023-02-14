@@ -64,60 +64,67 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <div class="lg:flex items-center pb-2 border-b">
-                        <div class="font-semibold text-xl text-gray-800  border-gray-200 flex">
-                            ユーザ一覧
+                    <form method="POST" name="account">
+                        @csrf
+                        <div class="lg:flex items-center pb-2 border-b">
+                            <div class="font-semibold text-xl text-gray-800  border-gray-200 flex">
+                                ユーザ一覧
+                            </div>
+                            <div class="ml-auto">
+                                <label class="mx-3 text-gray-700 relative px-6">
+                                    <input type="checkbox" id="check-all"
+                                        class="absolute top-0 left-0 bottom-0 m-auto" />全て選択
+                                </label>
+                                <button type="button" id="reactivation"
+                                    class="w-16 text-white bg-emerald-400 border-0 py-1 px-4 focus:outline-none hover:bg-emerald-500 rounded">再開</button>
+                                <button type="button" id="suspension"
+                                    class="w-16 text-white bg-rose-400 border-0 py-1 px-4 focus:outline-none hover:bg-rose-500 rounded cursor-pointer">停止</button>
+                            </div>
                         </div>
-                        <div class="ml-auto">
-                            <button
-                                class="text-white bg-emerald-400 border-0 py-1 px-4 focus:outline-none hover:bg-emerald-500 rounded">
-                                再開
-                            </button>
-                            <button
-                                class="text-white bg-rose-400 border-0 py-1 px-4 focus:outline-none hover:bg-rose-500 rounded">
-                                停止
-                            </button>
-                        </div>
-                    </div>
-                    <ul class="max-w-full divide-y divide-gray-100 dark:divide-gray-200 border-b border-gray-200">
-                        @if ($users->isEmpty())
-                            <li class="py-3 sm:pb-4">
-                                <span>該当するユーザは存在しません。</span>
-                            </li>
-                        @endif
-                        @foreach ($users as $user)
-                            <li class="py-3 sm:pb-4">
-                                <div class="grid grid-cols-12 gap-1 items-center">
-                                    <div class="col-span-1 flex justify-center">
-                                        <input type="checkbox" name="select" class="mr-5">
-                                    </div>
-                                    <a href=""
-                                        class="grid grid-cols-12 gap-16 items-center text-base text-gray-700 truncate hover:text-orange-500 col-span-10">
-                                        <div name="user_id" class="col-span-1">
-                                            {{ $user->id }}
+                        <ul class="max-w-full divide-y divide-gray-100 dark:divide-gray-200 border-b border-gray-200">
+                            @if ($users->isEmpty())
+                                <li class="py-3 sm:pb-4">
+                                    <span>該当するユーザは存在しません。</span>
+                                </li>
+                            @endif
+                            @foreach ($users as $user)
+                                <li
+                                    @if (is_null($user->deleted_at)) class="py-3 sm:pb-4 bg-white"
+                            @else
+                                class="py-3 sm:pb-4 bg-gray-300" @endif>
+                                    <div class="grid grid-cols-12 gap-1 items-center">
+                                        <div class="col-span-1 flex justify-center">
+                                            <input type="checkbox" name="select" class="mr-5 user-check">
                                         </div>
-                                        <div name="name" class="col-span-2">
-                                            {{ $user->name }}
-                                        </div>
-                                        <div name="email" class="col-span-4">
-                                            {{ $user->email }}
-                                        </div>
-                                        <div name="address" class="col-span-5">
-                                            {{ $user->address }}
-                                        </div>
-                                    </a>
-                                    <div class="ml-auto text-gray-700 items-center text-xs font-semibold col-span-1">
-                                        <div>
-                                            {{ $user->borrowing_count }}冊 貸出中
-                                        </div>
-                                        <div>
-                                            {{ $user->arrears_count }}冊 延滞中
+                                        <a href=""
+                                            class="grid grid-cols-12 gap-16 items-center text-base text-gray-700 truncate hover:text-orange-500 col-span-10">
+                                            <div name="user_id" class="col-span-1">
+                                                {{ $user->id }}
+                                            </div>
+                                            <div name="name" class="col-span-2">
+                                                {{ $user->name }}
+                                            </div>
+                                            <div name="email" class="col-span-4">
+                                                {{ $user->email }}
+                                            </div>
+                                            <div name="address" class="col-span-5">
+                                                {{ $user->address }}
+                                            </div>
+                                        </a>
+                                        <div
+                                            class="ml-auto mr-5 text-gray-700 items-center text-xs font-semibold col-span-1">
+                                            <div>
+                                                {{ $user->borrowing_count }}冊 貸出中
+                                            </div>
+                                            <div>
+                                                {{ $user->arrears_count }}冊 延滞中
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </li>
-                        @endforeach
-                    </ul>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </form>
 
                 </div>
             </div>
@@ -130,4 +137,33 @@
                 ])->links() }}
         </div>
     </div>
+    <script>
+        console.log("{{ config('app.url') }}");
+        const account = document.getElementById('account');
+        account.addEventListener('change', function() {
+            this.form.submit();
+        });
+        const arrears = document.getElementById('arrears');
+        arrears.addEventListener('change', function() {
+            this.form.submit();
+        });
+        const checkAll = document.getElementById('check-all');
+        const checks = document.getElementsByClassName('user-check');
+        checkAll.addEventListener('change', (e) => {
+            Object.values(checks).forEach(check => {
+                // 各チェックボックスを「全て選択」と同じ状態にする
+                check.checked = e.target.checked;
+            });
+        });
+        const reactivation = document.getElementById('reactivation');
+        const suspension = document.getElementById('suspension');
+        reactivation.addEventListener('click', () => {
+            document.account.action = "{{ route('admin.user.restore') }}";
+            document.account.submit();
+        });
+        suspension.addEventListener('click', () => {
+            document.account.action = "{{ route('admin.user.destroy') }}";
+            document.account.submit();
+        })
+    </script>
 </x-app-layout>

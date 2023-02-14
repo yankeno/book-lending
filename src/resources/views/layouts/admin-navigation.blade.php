@@ -17,7 +17,7 @@
                     <x-nav-link :href="route('admin.book.search')" :active="request()->routeIs('admin.book.search')">
                         {{ __('図書検索') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('admin.user.index')" :active="request()->routeIs('admin.user.index')">
+                    <x-nav-link :href="route('admin.user.index')" :active="request()->routeIs(['admin.user.index', 'admin.user.search'])">
                         {{ __('ユーザ検索') }}
                     </x-nav-link>
                 </div>

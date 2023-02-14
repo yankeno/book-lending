@@ -45,4 +45,15 @@ class UserController extends Controller
             ->paginate(50);
         return view('admin.user.index', compact('users'));
     }
+
+    public function show()
+    {
+    }
+    public function restore(Request $request)
+    {
+        dd($request);
+    }
+    public function destroy()
+    {
+    }
 }

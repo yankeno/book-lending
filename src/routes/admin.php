@@ -34,6 +34,8 @@ Route::middleware('auth:admin')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('index');
         Route::get('/search', [UserController::class, 'search'])->name('search');
         Route::get('/show', [UserController::class, 'show'])->name('show');
+        Route::post('/restore', [UserController::class, 'restore'])->name('restore');
+        Route::post('/destroy', [UserController::class, 'destroy'])->name('destroy');
     });
 });
 
