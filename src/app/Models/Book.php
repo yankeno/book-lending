@@ -45,7 +45,7 @@ class Book extends Model
         return $this->belongsToMany(User::class, 'rentals', 'book_id', 'user_id');;
     }
 
-    public function scopeSelectCategory($query = null, $categoryId)
+    public function scopeSelectCategory($query, $categoryId)
     {
         if ($categoryId !== 0) {
             $query->where('category_id', $categoryId);
@@ -53,7 +53,7 @@ class Book extends Model
         return $query;
     }
 
-    public function scopeSearchKeyword($query = null, string $keyword = null)
+    public function scopeSearchKeyword($query, string $keyword = null)
     {
         if (!is_null($keyword)) {
             $spaceConvert = mb_convert_kana($keyword, 's');

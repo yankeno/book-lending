@@ -10,25 +10,33 @@ use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\BookController;
+use App\Http\Controllers\Admin\UserController;
 
 Route::get('/', function () {
     return view('admin.welcome');
 });
 
 Route::get('/dashboard', function () {
-    // return view('admin.dashboard');
-    phpinfo();
+    return view('admin.dashboard');
 })->middleware(['auth:admin'])->name('dashboard');
 
 Route::middleware('auth:admin')->group(function () {
-    Route::get('/', [BookController::class, 'index'])->name('book.index');
-    Route::get('/search', [BookController::class, 'search'])->name('book.search');
-    // Route::get('/create', [BookController::class, 'create'])->name('book.create');
-    // Route::post('/', [BookController::class, 'store'])->name('book.store');
-    Route::get('/show/{bookId}', [BookController::class, 'show'])->name('book.show');
-    Route::get('/edit/{bookId}', [BookController::class, 'edit'])->name('book.edit');
-    Route::put('/update/{bookId}', [BookController::class, 'update'])->name('book.update');
-    Route::delete('/destroy/{bookId}', [BookController::class, 'destroy'])->name('book.destroy');
+    Route::name('book.')->group(function () {
+        Route::get('/', [BookController::class, 'index'])->name('index');
+        Route::get('/search', [BookController::class, 'search'])->name('search');
+        Route::get('/show/{bookId}', [BookController::class, 'show'])->name('show');
+        Route::get('/edit/{bookId}', [BookController::class, 'edit'])->name('edit');
+        Route::put('/update/{bookId}', [BookController::class, 'update'])->name('update');
+        Route::delete('/destroy/{bookId}', [BookController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
+        Route::get('/', [UserController::class, 'index'])->name('index');
+        Route::get('/search', [UserController::class, 'search'])->name('search');
+        Route::get('/show', [UserController::class, 'show'])->name('show');
+        Route::post('/restore', [UserController::class, 'restore'])->name('restore');
+        Route::post('/destroy', [UserController::class, 'destroy'])->name('destroy');
+    });
 });
 
 Route::middleware('guest')->group(function () {
