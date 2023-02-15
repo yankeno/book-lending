@@ -49,11 +49,27 @@ class UserController extends Controller
     public function show()
     {
     }
+
     public function restore(Request $request)
     {
-        dd($request);
+        User::withTrashed()
+            ->whereIn('id', array_keys($request->userId))
+            ->restore();
+        return redirect()->route('admin.user.index')
+            ->with([
+                'message' => 'アカウントを再開しました。',
+                'status' => 'info',
+            ]);
     }
-    public function destroy()
+
+    public function destroy(Request $request)
     {
+        User::whereIn('id', array_keys($request->userId))
+            ->delete();
+        return redirect()->route('admin.user.index')
+            ->with([
+                'message' => 'アカウントを停止しました。',
+                'status' => 'alert',
+            ]);
     }
 }

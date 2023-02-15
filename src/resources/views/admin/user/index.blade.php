@@ -94,7 +94,8 @@
                                 class="py-3 sm:pb-4 bg-gray-300" @endif>
                                     <div class="grid grid-cols-12 gap-1 items-center">
                                         <div class="col-span-1 flex justify-center">
-                                            <input type="checkbox" name="select" class="mr-5 user-check">
+                                            <input type="checkbox" name="userId[{{ $user->id }}]"
+                                                class="mr-5 user-check">
                                         </div>
                                         <a href=""
                                             class="grid grid-cols-12 gap-16 items-center text-base text-gray-700 truncate hover:text-orange-500 col-span-10">
