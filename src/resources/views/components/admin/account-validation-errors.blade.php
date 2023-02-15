@@ -3,7 +3,7 @@
 @if ($errors->any())
     <div {{ $attributes }}>
         <div class="font-medium text-red-600">
-            {{ __('ユーザの登録ができませんでした。') }}
+            {{ __('アカウント状態の更新ができませんでした。') }}
         </div>
 
         <ul class="mt-3 list-disc list-inside text-sm text-red-600">

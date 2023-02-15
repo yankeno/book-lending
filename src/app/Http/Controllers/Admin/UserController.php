@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\User\UpdateRequest;
+use Illuminate\Database\Eloquent\Builder;
+use App\Http\Requests\User\AccountUpdateRequest;
 
 class UserController extends Controller
 {
@@ -46,11 +49,40 @@ class UserController extends Controller
         return view('admin.user.index', compact('users'));
     }
 
-    public function show()
+    public function edit(int $id)
     {
+        $user = User::withCount([
+            'rentals as borrowing_count' => function (Builder $query) {
+                $query->where('is_returned', 0);
+            },
+            'rentals as arrears_count' => function (Builder $query) {
+                $query->where('is_returned', 0)
+                    ->where('return_date', '<', now()->format('Y-m-d'));
+            }
+        ])
+            ->withTrashed()
+            ->findOrFail($id);
+        return view('admin.user.edit', compact('user'));
     }
 
-    public function restore(Request $request)
+    public function update(int $id, UpdateRequest $request)
+    {
+        User::whereId($id)
+            ->withTrashed()
+            ->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'address' => $request->address,
+                'password' => Hash::make($request->password),
+            ]);
+        return redirect()->route('admin.user.index')
+            ->with([
+                'message' => 'ユーザ情報を更新しました。',
+                'status' => 'info',
+            ]);
+    }
+
+    public function restore(AccountUpdateRequest $request)
     {
         User::withTrashed()
             ->whereIn('id', array_keys($request->userId))
@@ -62,7 +94,7 @@ class UserController extends Controller
             ]);
     }
 
-    public function destroy(Request $request)
+    public function destroy(AccountUpdateRequest $request)
     {
         User::whereIn('id', array_keys($request->userId))
             ->delete();

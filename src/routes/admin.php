@@ -33,7 +33,8 @@ Route::middleware('auth:admin')->group(function () {
     Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
         Route::get('/', [UserController::class, 'index'])->name('index');
         Route::get('/search', [UserController::class, 'search'])->name('search');
-        Route::get('/show', [UserController::class, 'show'])->name('show');
+        Route::get('/edit/{userId}', [UserController::class, 'edit'])->name('edit');
+        Route::put('/update/{userId}', [UserController::class, 'update'])->name('update');
         Route::post('/restore', [UserController::class, 'restore'])->name('restore');
         Route::post('/destroy', [UserController::class, 'destroy'])->name('destroy');
     });

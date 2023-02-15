@@ -57,6 +57,7 @@
                 </div>
             </div>
         </form>
+        <x-admin.account-validation-errors class="mb-4" :errors="$errors" />
         <x-flash-message status="{{ session('status') }}" />
     </x-slot>
 
@@ -97,7 +98,7 @@
                                             <input type="checkbox" name="userId[{{ $user->id }}]"
                                                 class="mr-5 user-check">
                                         </div>
-                                        <a href=""
+                                        <a href="{{ route('admin.user.edit', ['userId' => $user->id]) }}"
                                             class="grid grid-cols-12 gap-16 items-center text-base text-gray-700 truncate hover:text-orange-500 col-span-10">
                                             <div name="user_id" class="col-span-1">
                                                 {{ $user->id }}
