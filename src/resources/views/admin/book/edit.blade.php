@@ -9,7 +9,7 @@
         <div class="w-full sm:max-w-md px-6 py-4 my-auto bg-white shadow-md overflow-hidden sm:rounded-lg">
 
             <!-- Validation Errors -->
-            <x-register-validation-errors class="mb-4" :errors="$errors" />
+            <x-admin.book-validation-errors class="mb-4" :errors="$errors" />
             <x-flash-message status="{{ session('status') }}" />
 
             <form method="POST" action="{{ route('admin.book.update', ['bookId' => $book->id]) }}"
