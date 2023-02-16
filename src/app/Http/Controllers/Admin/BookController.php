@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\ParentCategory;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Book\StoreRequest;
 use App\Http\Requests\Book\UpdateRequest;
 use App\Models\Publisher;
 use App\Services\ImageService;
@@ -67,6 +68,32 @@ class BookController extends Controller
             ->get();
         $publishers = Publisher::get();
         return view('admin.book.edit', compact(['book', 'parentCategories', 'publishers']));
+    }
+
+    public function create()
+    {
+        $parentCategories = ParentCategory::with('categories')
+            ->get();
+        $publishers = Publisher::get();
+        return view('admin.book.create', compact(['parentCategories', 'publishers']));
+    }
+
+    public function store(StoreRequest $request)
+    {
+        $fileNameToStore = ImageService::upload($request->file('image'), 'books');
+        $book = Book::create([
+            'publisher_id' => $request->publisher,
+            'category_id' => $request->category,
+            'title' => $request->title,
+            'isbn_13' => $request->isbn_13,
+            'image' => $fileNameToStore,
+            'published_date' => $request->published_date,
+        ]);
+        return redirect()->route('admin.book.edit', ['bookId' => $book->id])
+            ->with([
+                'message' => '図書情報を登録しました。',
+                'status' => 'info',
+            ]);
     }
 
     public function update(int $id, UpdateRequest $request)

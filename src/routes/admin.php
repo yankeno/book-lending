@@ -26,6 +26,8 @@ Route::middleware('auth:admin')->group(function () {
         Route::get('/search', [BookController::class, 'search'])->name('search');
         Route::get('/show/{bookId}', [BookController::class, 'show'])->name('show');
         Route::get('/edit/{bookId}', [BookController::class, 'edit'])->name('edit');
+        Route::get('/create', [BookController::class, 'create'])->name('create');
+        Route::post('/store', [BookController::class, 'store'])->name('store');
         Route::put('/update/{bookId}', [BookController::class, 'update'])->name('update');
         Route::delete('/destroy/{bookId}', [BookController::class, 'destroy'])->name('destroy');
     });
@@ -41,11 +43,6 @@ Route::middleware('auth:admin')->group(function () {
 });
 
 Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
-        ->name('register');
-
-    Route::post('register', [RegisteredUserController::class, 'store']);
-
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
 
@@ -65,6 +62,10 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth:admin')->group(function () {
+    Route::get('register', [RegisteredUserController::class, 'create'])
+        ->name('register');
+
+    Route::post('register', [RegisteredUserController::class, 'store']);
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
         ->name('verification.notice');
 
