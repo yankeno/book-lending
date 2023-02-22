@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            図書情報更新
+            図書登録
         </h2>
     </x-slot>
 
@@ -12,16 +12,14 @@
             <x-admin.book-validation-errors class="mb-4" :errors="$errors" />
             <x-flash-message status="{{ session('status') }}" />
 
-            <form method="POST" action="{{ route('admin.book.update', ['bookId' => $book->id]) }}"
-                enctype="multipart/form-data">
+            <form method="POST" action="{{ route('admin.book.store') }}" enctype="multipart/form-data">
                 @csrf
-                @method('PUT')
 
                 <!-- Title -->
                 <div>
                     <x-label for="title" :value="__('タイトル')" />
 
-                    <x-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title', $book->title)"
+                    <x-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title')"
                         required autofocus />
                 </div>
 
@@ -32,7 +30,7 @@
                     <select multiple name="authors[]" id="book-authors-choices"
                         class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                         @foreach ($authors as $author)
-                            <option value="{{ $author->id }}" @if (in_array($author->id, $authorIds, true)) selected @endif>
+                            <option value="{{ $author->id }}">
                                 {{ $author->name }}
                             </option>
                         @endforeach
@@ -46,7 +44,7 @@
                     <select name="publisher" id="book-publisher-choices"
                         class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                         @foreach ($publishers as $publisher)
-                            <option value="{{ $publisher->id }}" @if ($publisher->id === $book->publisher->id) selected @endif>
+                            <option value="{{ $publisher->id }}">
                                 {{ $publisher->name }}
                             </option>
                         @endforeach
@@ -62,8 +60,7 @@
                         @foreach ($parentCategories as $parentCategory)
                             <optgroup label="{{ $parentCategory->name }}">
                                 @foreach ($parentCategory->categories as $category)
-                                    <option value="{{ $category->id }}"
-                                        @if ($book->category_id === $category->id) selected @endif>
+                                    <option value="{{ $category->id }}">
                                         {{ $category->name }}
                                     </option>
                                 @endforeach
@@ -77,7 +74,7 @@
                     <x-label for="published_date" :value="__('出版日')" />
 
                     <x-input id="published-date" class="block mt-1 w-full" type="date" name="published_date"
-                        value="{{ old('published_date', $book->published_date->format('Y-m-d')) }}" required />
+                        value="{{ old('published_date') }}" required />
                 </div>
 
                 <!-- ISBN-13 -->
@@ -85,7 +82,7 @@
                     <x-label for="isbn_13" :value="__('ISBN-13')" />
 
                     <x-input id="isbn-13" class="block mt-1 w-full" type="text" name="isbn_13"
-                        value="{{ old('isbn_13', $book->isbn_13) }}" required />
+                        value="{{ old('isbn_13') }}" required />
                 </div>
 
                 <!-- Image -->
@@ -94,19 +91,15 @@
 
                     <input id="image" class="block mt-1 w-full" type="file" name="image"
                         accept=".jpg, .jpeg, .png" />
-                    <figure id="figure" class="text-gray-500 mx-auto my-5">
+                    <figure id="figure" class="text-gray-500 mx-auto my-5 hidden">
                         <figcaption>プレビュー</figcaption>
-                        <x-image :image="$book->image" id="figureImage" class="h-36" />
+                        <img src="" alt="表紙" id="figureImage" class="h-36">
                     </figure>
                 </div>
 
                 <div class="flex items-center justify-end mt-4">
-                    <button class="ml-4" type="button">
-                        <a href="{{ route('admin.book.show', ['bookId' => $book->id]) }}"
-                            class='inline-flex items-center px-4 py-2 bg-gray-400 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-500 active:bg-gray-600 focus:outline-none focus:border-gray-600 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150'>戻る</a>
-                    </button>
                     <x-button class="ml-4">
-                        {{ __('更新') }}
+                        {{ __('登録') }}
                     </x-button>
                 </div>
             </form>

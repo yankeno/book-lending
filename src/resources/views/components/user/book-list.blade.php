@@ -12,7 +12,7 @@
             <li class="py-3 sm:pb-4">
                 <div class="flex items-center space-x-8">
                     <div class="flex-shrink-0">
-                        <img class="w-auto h-16" src="{{ asset('storage/books/' . $book->image) }}">
+                        <x-image class="h-16" :image="$book->image" />
                     </div>
                     <div class="flex-1 min-w-0">
                         <a href="{{ route('user.book.show', ['bookId' => $book->id]) }}">

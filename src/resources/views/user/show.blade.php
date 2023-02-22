@@ -15,8 +15,7 @@
                     <section class="text-gray-600 body-font overflow-hidden">
                         <div class="container px-2 py-12 mx-auto">
                             <div class="lg:w-5/6 mx-auto flex flex-wrap justify-center">
-                                <img alt="image" src="{{ asset('storage/books/' . $book->image) }}"
-                                    class="w-auto h-96">
+                                <x-image class="h-96" :image="$book->image" />
                                 <div class="lg:w-1/2 w-full h-96 lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                                     <span class="text-sm mb-6">{{ $book->category->parent_category->name }} ›
                                         {{ $book->category->name }}</span>

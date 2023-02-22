@@ -1,4 +1,9 @@
-<x-guest-layout>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('ユーザ検索') }}
+        </h2>
+    </x-slot>
     <x-auth-card>
         <x-slot name="logo">
             <div class="w-20">
@@ -9,7 +14,7 @@
         </x-slot>
 
         <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        <x-admin.admin-account-register-validation-errors class="mb-4" :errors="$errors" />
 
         <form method="POST" action="{{ route('admin.register') }}">
             @csrf
@@ -18,8 +23,8 @@
             <div>
                 <x-label for="name" :value="__('Name')" />
 
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required
-                    autofocus />
+                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')"
+                    required autofocus />
             </div>
 
             <!-- Email Address -->
@@ -57,4 +62,4 @@
             </div>
         </form>
     </x-auth-card>
-</x-guest-layout>
+</x-app-layout>

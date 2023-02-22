@@ -14,8 +14,14 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('admin.book.create')" :active="request()->routeIs('admin.book.create')">
+                        {{ __('図書登録') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('admin.book.search')" :active="request()->routeIs(['admin.book.index', 'admin.book.search'])">
                         {{ __('図書検索') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('admin.register')" :active="request()->routeIs('admin.register')">
+                        {{ __('管理者登録') }}
                     </x-nav-link>
                     <x-nav-link :href="route('admin.user.index')" :active="request()->routeIs(['admin.user.index', 'admin.user.search'])">
                         {{ __('ユーザ検索') }}
