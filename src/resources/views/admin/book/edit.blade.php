@@ -82,8 +82,7 @@
                         accept=".jpg, .jpeg, .png" />
                     <figure id="figure" class="text-gray-500 mx-auto my-5">
                         <figcaption>プレビュー</figcaption>
-                        <img src="{{ asset('storage/books/' . $book->image) }}" alt="" id="figureImage"
-                            class="h-36">
+                        <x-image :image="$book->image" id="figureImage" class="h-36" />
                     </figure>
                 </div>
 

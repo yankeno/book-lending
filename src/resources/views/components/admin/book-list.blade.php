@@ -12,8 +12,7 @@
             <li class="py-3 sm:pb-4">
                 <div class="flex items-center space-x-8">
                     <div class="flex-shrink-0">
-                        <img class="w-auto h-16"
-                            src="{{ \File::exists('storage/books/' . $book->image) ? asset('storage/books/' . $book->image) : asset('storage/books/no_image.png') }}">
+                        <x-image class="h-16" :image="$book->image" />
                     </div>
                     <div class="flex-1 min-w-0">
                         <a href="{{ route('admin.book.show', ['bookId' => $book->id]) }}">

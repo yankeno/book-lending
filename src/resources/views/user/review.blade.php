@@ -13,7 +13,7 @@
                         <x-review-validation-errors :errors="$errors" />
                     </div>
                     <div class="flex pb-4 mb-4 items-center border-b border-gray-200">
-                        <img class="w-auto h-16" src="{{ asset('storage/books/' . $book->image) }}">
+                        <x-image class="h-16" :image="$book->image" />
                         <p class="text-base font-medium text-gray-800 truncate mx-4">
                             {{ $book->title }} のレビューを投稿する
                         </p>
