@@ -23,6 +23,20 @@
                         required autofocus />
                 </div>
 
+                <!-- Author -->
+                <div class="mt-4">
+                    <x-label for="publisher" :value="__('著者')" />
+
+                    <select multiple name="authors[]" id="book-authors-choices"
+                        class="block mt-1 w-full rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                        @foreach ($authors as $author)
+                            <option value="{{ $author->id }}">
+                                {{ $author->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
                 <!-- Publisher -->
                 <div class="mt-4">
                     <x-label for="publisher" :value="__('出版社')" />

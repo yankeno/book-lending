@@ -8,6 +8,7 @@ use App\Models\ParentCategory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Book\StoreRequest;
 use App\Http\Requests\Book\UpdateRequest;
+use App\Models\Author;
 use App\Models\Publisher;
 use App\Services\ImageService;
 
@@ -56,26 +57,13 @@ class BookController extends Controller
         return view('admin.book.show', compact(['book']));
     }
 
-    public function edit(int $id)
-    {
-        $book = Book::with([
-            'authors:id,name',
-            'publisher:id,name',
-            'category:id,parent_category_id,name',
-        ])
-            ->findOrFail($id);
-        $parentCategories = ParentCategory::with('categories')
-            ->get();
-        $publishers = Publisher::get();
-        return view('admin.book.edit', compact(['book', 'parentCategories', 'publishers']));
-    }
-
     public function create()
     {
         $parentCategories = ParentCategory::with('categories')
             ->get();
         $publishers = Publisher::get();
-        return view('admin.book.create', compact(['parentCategories', 'publishers']));
+        $authors = Author::get();
+        return view('admin.book.create', compact(['parentCategories', 'publishers', 'authors']));
     }
 
     public function store(StoreRequest $request)
@@ -89,11 +77,36 @@ class BookController extends Controller
             'image' => $fileNameToStore,
             'published_date' => $request->published_date,
         ]);
+        $book->authors()->sync($request->authors);
         return redirect()->route('admin.book.edit', ['bookId' => $book->id])
             ->with([
                 'message' => '図書情報を登録しました。',
                 'status' => 'info',
             ]);
+    }
+
+    public function edit(int $id)
+    {
+        $book = Book::with([
+            'authors:id,name',
+            'publisher:id,name',
+            'authors:id,name',
+            'category:id,parent_category_id,name',
+        ])
+            ->findOrFail($id);
+        $parentCategories = ParentCategory::with('categories')
+            ->get();
+        $publishers = Publisher::get();
+        $authors = Author::get();
+        // Collection で渡すのは無駄が多いので id のみ切り出して渡す
+        $authorIds = $book->authors->pluck('id')->toArray();
+        return view('admin.book.edit', compact([
+            'book',
+            'parentCategories',
+            'publishers',
+            'authors',
+            'authorIds',
+        ]));
     }
 
     public function update(int $id, UpdateRequest $request)
@@ -108,6 +121,7 @@ class BookController extends Controller
             'image' => $fileNameToStore === '' ? $book->image : $fileNameToStore,
             'published_date' => $request->published_date,
         ]);
+        $book->authors()->sync($request->authors);
         return redirect()->route('admin.book.edit', ['bookId' => $id])
             ->with([
                 'message' => '図書情報を編集しました。',

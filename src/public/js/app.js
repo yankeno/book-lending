@@ -5100,13 +5100,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var choices_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! choices.js */ "./node_modules/choices.js/public/assets/scripts/choices.js");
 /* harmony import */ var choices_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(choices_js__WEBPACK_IMPORTED_MODULE_0__);
 
-var ids = ["book-category-choices", "book-publisher-choices"];
+var ids = ["book-authors-choices", "book-category-choices", "book-publisher-choices"];
 document.addEventListener("DOMContentLoaded", function () {
   ids.forEach(function (id) {
     var element = document.getElementById(id);
     if (element) {
       return new (choices_js__WEBPACK_IMPORTED_MODULE_0___default())(element, {
         removeItemButton: true,
+        maxItemCount: -1,
         allowHTML: true,
         searchResultLimit: 100,
         searchPlaceholderValue: "検索ワード",

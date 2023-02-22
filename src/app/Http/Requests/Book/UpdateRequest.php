@@ -25,6 +25,8 @@ class UpdateRequest extends FormRequest
     {
         return [
             'title' => 'required|string',
+            'authors' => 'required|array|min:1',
+            'authors.*' => 'exists:authors,id',
             'publisher' => 'required|integer|exists:publishers,id',
             'category' => 'required|integer|exists:categories,id',
             'published_date' => 'required|date',

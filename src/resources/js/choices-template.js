@@ -1,6 +1,10 @@
 import Choices from "choices.js";
 
-const ids = ["book-category-choices", "book-publisher-choices"];
+const ids = [
+  "book-authors-choices",
+  "book-category-choices",
+  "book-publisher-choices",
+];
 
 document.addEventListener("DOMContentLoaded", () => {
   ids.forEach((id) => {
@@ -8,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (element) {
       return new Choices(element, {
         removeItemButton: true,
+        maxItemCount: -1,
         allowHTML: true,
         searchResultLimit: 100,
         searchPlaceholderValue: "検索ワード",
