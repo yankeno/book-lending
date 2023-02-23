@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Author;
 use App\Models\AuthorBook;
 use App\Models\Book;
 use App\Models\Publisher;
@@ -32,6 +33,7 @@ class DatabaseSeeder extends Seeder
         ]);
         User::factory(100)->create();
         Book::factory(1000)->create();
+        Author::factory(100)->create();
         AuthorBook::factory(1000)->create();
         Review::factory(1000)->create();
         Rental::factory(1000)->create();

@@ -13,6 +13,11 @@ class Common
     const IS_ACTIVE = '1';
     const IS_NOT_ACTIVE = '2';
 
+    // 著者ステータス
+    const ALL_AUTHOR = '0';
+    const IS_ACTIVE_AUTHOR = '1';
+    const IS_NOT_ACTIVE_AUTHOR = '2';
+
     // 延滞ステータス
     const ALL_LENDING = '0';
     const HAS_OVERDUE = '1';

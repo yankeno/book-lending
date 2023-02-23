@@ -1,16 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('ユーザ検索') }}
+            {{ __('著者検索') }}
         </h2>
-        <form method="get" action="{{ route('admin.user.search') }}">
+        <form method="get" action="{{ route('admin.author.search') }}">
             <div class="lg:flex lg:justify-around">
                 <div class="lg:flex items-center mx-auto">
                     <div class="flex space-x-2 items-center">
                         <div class="flex space-x-2 items-center">
                             <div>
-                                <input name="keyword" class="border-gray-500 py-2 w-60" type="text"
-                                    placeholder="ユーザ名を入力">
+                                <input name="keyword" class="border-gray-500 py-2 w-60" type="text" placeholder="著者を入力">
                             </div>
                             <div>
                                 <button
@@ -23,34 +22,18 @@
                 </div>
                 <div class="flex">
                     <div>
-                        <span class="text-sm">アカウント状況<br></span>
-                        <select name="account" id="account" class="mr-4 text-gray-700 w-32">
-                            <option value="{{ \Constant::ALL_ACCOUNT }}">
+                        <span class="text-sm">ステータス<br></span>
+                        <select name="status" id="author_status" class="mr-4 text-gray-700 w-32">
+                            <option value="{{ \Constant::ALL_AUTHOR }}">
                                 全て
                             </option>
-                            <option value="{{ \Constant::IS_ACTIVE }}"
-                                @if (\Request::get('account') === \Constant::IS_ACTIVE) selected @endif>
+                            <option value="{{ \Constant::IS_ACTIVE_AUTHOR }}"
+                                @if (\Request::get('author_status') === \Constant::IS_ACTIVE_AUTHOR) selected @endif>
                                 有効
                             </option>
-                            <option value="{{ \Constant::IS_NOT_ACTIVE }}"
-                                @if (\Request::get('account') === \Constant::IS_NOT_ACTIVE) selected @endif>
+                            <option value="{{ \Constant::IS_NOT_ACTIVE_AUTHOR }}"
+                                @if (\Request::get('author_status') === \Constant::IS_NOT_ACTIVE_AUTHOR) selected @endif>
                                 無効
-                            </option>
-                        </select>
-                    </div>
-                    <div>
-                        <span class="text-sm">延滞状況<br></span>
-                        <select name="arrears" id="arrears" class="mr-4 text-gray-700 w-32">
-                            <option value="{{ \Constant::ALL_LENDING }}">
-                                全て
-                            </option>
-                            <option value="{{ \Constant::HAS_OVERDUE }}"
-                                @if (\Request::get('arrears') === \Constant::HAS_OVERDUE) selected @endif>
-                                延滞あり
-                            </option>
-                            <option value="{{ \Constant::NOT_HAS_OVERDUE }}"
-                                @if (\Request::get('arrears') === \Constant::NOT_HAS_OVERDUE) selected @endif>
-                                延滞なし
                             </option>
                         </select>
                     </div>
@@ -69,7 +52,7 @@
                         @csrf
                         <div class="lg:flex items-center pb-2 border-b">
                             <div class="font-semibold text-xl text-gray-800  border-gray-200 flex">
-                                ユーザ一覧
+                                著者一覧
                             </div>
                             <div class="ml-auto">
                                 <label class="mx-3 text-gray-700 relative px-6">
@@ -83,44 +66,32 @@
                             </div>
                         </div>
                         <ul class="max-w-full divide-y divide-gray-100 dark:divide-gray-200 border-b border-gray-200">
-                            @if ($users->isEmpty())
+                            @if ($authors->isEmpty())
                                 <li class="py-3 sm:pb-4">
-                                    <span>該当するユーザは存在しません。</span>
+                                    <span>該当する著者は存在しません。</span>
                                 </li>
                             @endif
-                            @foreach ($users as $user)
+                            @foreach ($authors as $author)
                                 <li
-                                    @if (is_null($user->deleted_at)) class="py-3 sm:pb-4 bg-white"
+                                    @if (is_null($author->deleted_at)) class="py-3 sm:pb-3 bg-white"
                             @else
-                                class="py-3 sm:pb-4 bg-gray-300" @endif>
+                                class="py-3 sm:pb-3 bg-gray-300" @endif>
                                     <div class="grid grid-cols-12 gap-1 items-center">
                                         <div class="col-span-1 flex justify-center">
-                                            <input type="checkbox" name="userId[{{ $user->id }}]"
-                                                class="mr-5 user-check">
+                                            <input type="checkbox" name="authorId[{{ $author->id }}]"
+                                                class="mr-5 author-check">
                                         </div>
-                                        <a href="{{ route('admin.user.edit', ['userId' => $user->id]) }}"
-                                            class="grid grid-cols-12 gap-16 items-center text-base text-gray-700 truncate hover:text-orange-500 col-span-10">
-                                            <div name="user_id" class="col-span-1">
-                                                {{ $user->id }}
-                                            </div>
-                                            <div name="name" class="col-span-2">
-                                                {{ $user->name }}
-                                            </div>
-                                            <div name="email" class="col-span-4">
-                                                {{ $user->email }}
-                                            </div>
-                                            <div name="address" class="col-span-5">
-                                                {{ $user->address }}
-                                            </div>
-                                        </a>
                                         <div
-                                            class="ml-auto mr-5 text-gray-700 items-center text-xs font-semibold col-span-1">
-                                            <div>
-                                                {{ $user->borrowing_count }}冊 貸出中
+                                            class="grid grid-cols-12 gap-16 items-center text-base text-gray-700 truncate col-span-10">
+                                            <div name="author_id" class="col-span-1">
+                                                {{ $author->id }}
                                             </div>
-                                            <div>
-                                                {{ $user->arrears_count }}冊 延滞中
-                                            </div>
+                                            <input name="name" class="col-span-5 px-2 py-1 outline-slate-300"
+                                                id="{{ $author->id }}" value="{{ $author->name }}" />
+                                        </div>
+                                        <div class="ml-auto col-span-1">
+                                            <button type="button" name="{{ $author->id }}"
+                                                class="author-modify w-16 text-white bg-neutral-400 border-0 py-1 px-4 focus:outline-none hover:bg-neutral-500 rounded">変更</button>
                                         </div>
                                     </div>
                                 </li>
@@ -132,24 +103,21 @@
             </div>
         </div>
         <div class="mx-auto sm:px-6 lg:px-8 mt-6">
-            {{ $users->appends([
+            {{ $authors->appends([
                     'pagination' => \Request::get('pagination'),
-                    'account' => \Request::get('account'),
-                    'arrears' => \Request::get('arrears'),
+                    'author_status' => \Request::get('author_status'),
                 ])->links() }}
         </div>
     </div>
     <script>
-        const account = document.getElementById('account');
-        account.addEventListener('change', function() {
+        // 著者ステータス更新
+        const authorStatus = document.getElementById('author_status');
+        authorStatus.addEventListener('change', function() {
             this.form.submit();
         });
-        const arrears = document.getElementById('arrears');
-        arrears.addEventListener('change', function() {
-            this.form.submit();
-        });
+        // 「全て選択」用
         const checkAll = document.getElementById('check-all');
-        const checks = document.getElementsByClassName('user-check');
+        const checks = document.getElementsByClassName('author-check');
         checkAll.addEventListener('change', (e) => {
             Object.values(checks).forEach(check => {
                 // 各チェックボックスを「全て選択」と同じ状態にする
@@ -159,12 +127,49 @@
         const reactivation = document.getElementById('reactivation');
         const suspension = document.getElementById('suspension');
         reactivation.addEventListener('click', () => {
-            document.account.action = "{{ route('admin.user.restore') }}";
+            document.account.action = "{{ route('admin.author.restore') }}";
             document.account.submit();
         });
         suspension.addEventListener('click', () => {
-            document.account.action = "{{ route('admin.user.destroy') }}";
+            document.account.action = "{{ route('admin.author.destroy') }}";
             document.account.submit();
-        })
+        });
+
+        // 著者名更新
+        const buttons = document.getElementsByClassName('author-modify');
+        for (let i = 0; i < buttons.length; i++) {
+            buttons[i].addEventListener('click', (e) => {
+                buttons[i].disabled = true;
+                const postData = {
+                    name: document.getElementById(e.target.name).value
+                };
+                const authorId = buttons[i].name;
+
+                fetch(`{{ config('app.APP_URL') }}/admin/author/update/${authorId}`, {
+                        method: 'PUT',
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Accept": "application/json",
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                        },
+                        body: JSON.stringify(postData)
+                    })
+                    .then((result) => {
+                        if (!result.ok) {
+                            throw new Error();
+                        }
+                        return result.json();
+                    })
+                    .then((json) => {
+                        alert(json.message);
+                    })
+                    .catch((err) => {
+                        alert("著者情報の更新に失敗しました。");
+                    })
+                    .finally(() => {
+                        buttons[i].disabled = false;
+                    });
+            });
+        }
     </script>
 </x-app-layout>
