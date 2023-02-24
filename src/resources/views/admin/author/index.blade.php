@@ -23,7 +23,7 @@
                 <div class="flex">
                     <div>
                         <span class="text-sm">ステータス<br></span>
-                        <select name="status" id="author_status" class="mr-4 text-gray-700 w-32">
+                        <select name="author_status" id="author_status" class="mr-4 text-gray-700 w-32">
                             <option value="{{ \Constant::ALL_AUTHOR }}">
                                 全て
                             </option>
@@ -86,12 +86,15 @@
                                             <div name="author_id" class="col-span-1">
                                                 {{ $author->id }}
                                             </div>
-                                            <input name="name" class="col-span-5 px-2 py-1 outline-slate-300"
+                                            <input name="name"
+                                                @if (is_null($author->deleted_at)) class="col-span-5 bg-white px-2 py-1 outline-slate-300"
+                                                @else
+                                                class="col-span-5 bg-gray-300 px-2 py-1 outline-none" disabled @endif
                                                 id="{{ $author->id }}" value="{{ $author->name }}" />
                                         </div>
                                         <div class="ml-auto col-span-1">
                                             <button type="button" name="{{ $author->id }}"
-                                                class="author-modify w-16 text-white bg-neutral-400 border-0 py-1 px-4 focus:outline-none hover:bg-neutral-500 rounded">変更</button>
+                                                class="author-modify w-16 mr-4 text-white bg-neutral-400 border-0 py-1 px-4 focus:outline-none hover:bg-neutral-500 rounded">変更</button>
                                         </div>
                                     </div>
                                 </li>

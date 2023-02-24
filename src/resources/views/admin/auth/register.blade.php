@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('ユーザ検索') }}
+            {{ __('管理者登録') }}
         </h2>
     </x-slot>
     <x-auth-card>
@@ -21,7 +21,7 @@
 
             <!-- Name -->
             <div>
-                <x-label for="name" :value="__('Name')" />
+                <x-label for="name" :value="__('名前')" />
 
                 <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')"
                     required autofocus />
@@ -29,7 +29,7 @@
 
             <!-- Email Address -->
             <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
+                <x-label for="email" :value="__('Eメール')" />
 
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
                     required />
@@ -37,7 +37,7 @@
 
             <!-- Password -->
             <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
+                <x-label for="password" :value="__('パスワード')" />
 
                 <x-input id="password" class="block mt-1 w-full" type="password" name="password" required
                     autocomplete="new-password" />
@@ -45,7 +45,7 @@
 
             <!-- Confirm Password -->
             <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
+                <x-label for="password_confirmation" :value="__('再入力')" />
 
                 <x-input id="password_confirmation" class="block mt-1 w-full" type="password"
                     name="password_confirmation" required />
