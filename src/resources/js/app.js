@@ -1,5 +1,4 @@
 import "./bootstrap";
-import "./choices-template";
 
 import Alpine from "alpinejs";
 

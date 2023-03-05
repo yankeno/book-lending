@@ -45,6 +45,7 @@ Route::middleware('auth:admin')->group(function () {
     Route::group(['prefix' => 'author', 'as' => 'author.'], function () {
         Route::get('/', [AuthorController::class, 'index'])->name('index');
         Route::get('/search', [AuthorController::class, 'search'])->name('search');
+        Route::post('/store', [AuthorController::class, 'store'])->name('store');
         Route::put('/update/{authorId}', [AuthorController::class, 'update'])->name('update');
         Route::post('/restore', [AuthorController::class, 'restore'])->name('restore');
         Route::post('/destroy', [AuthorController::class, 'destroy'])->name('destroy');

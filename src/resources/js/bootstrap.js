@@ -1,4 +1,4 @@
-window._ = require('lodash');
+window._ = require("lodash");
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -6,9 +6,40 @@ window._ = require('lodash');
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = require('axios');
+window.axios = require("axios");
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+
+import MicroModal from "micromodal";
+
+MicroModal.init({
+  disableScroll: true,
+});
+
+import Choices from "choices.js";
+
+const ids = [
+  "book-authors-choices",
+  "book-category-choices",
+  "book-publisher-choices",
+];
+
+document.addEventListener("DOMContentLoaded", () => {
+  ids.forEach((id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      return new Choices(element, {
+        removeItemButton: true,
+        maxItemCount: -1,
+        allowHTML: true,
+        searchResultLimit: 100,
+        searchPlaceholderValue: "検索ワード",
+        noResultsText: "一致する情報は見つかりません",
+        itemSelectText: "選択",
+      });
+    }
+  });
+});
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

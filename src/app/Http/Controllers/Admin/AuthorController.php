@@ -30,6 +30,10 @@ class AuthorController extends Controller
         return view('admin.author.index', compact('authors'));
     }
 
+    public function store()
+    {
+    }
+
     public function update(int $id, UpdateRequest $request)
     {
         try {
