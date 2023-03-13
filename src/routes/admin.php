@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Admin\Auth\EmailVerificationNotificationController;
@@ -8,7 +9,7 @@ use App\Http\Controllers\Admin\Auth\NewPasswordController;
 use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AuthorController;
 use App\Http\Controllers\Admin\BookController;
 use App\Http\Controllers\Admin\UserController;
 
@@ -39,6 +40,15 @@ Route::middleware('auth:admin')->group(function () {
         Route::put('/update/{userId}', [UserController::class, 'update'])->name('update');
         Route::post('/restore', [UserController::class, 'restore'])->name('restore');
         Route::post('/destroy', [UserController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::group(['prefix' => 'author', 'as' => 'author.'], function () {
+        Route::get('/', [AuthorController::class, 'index'])->name('index');
+        Route::get('/search', [AuthorController::class, 'search'])->name('search');
+        Route::post('/store', [AuthorController::class, 'store'])->name('store');
+        Route::put('/update/{authorId}', [AuthorController::class, 'update'])->name('update');
+        Route::post('/restore', [AuthorController::class, 'restore'])->name('restore');
+        Route::post('/destroy', [AuthorController::class, 'destroy'])->name('destroy');
     });
 });
 

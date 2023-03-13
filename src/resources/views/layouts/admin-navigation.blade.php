@@ -20,6 +20,9 @@
                     <x-nav-link :href="route('admin.book.search')" :active="request()->routeIs(['admin.book.index', 'admin.book.search'])">
                         {{ __('図書検索') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.author.index')" :active="request()->routeIs(['admin.author.index', 'admin.author.search'])">
+                        {{ __('著者検索') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('admin.register')" :active="request()->routeIs('admin.register')">
                         {{ __('管理者登録') }}
                     </x-nav-link>
