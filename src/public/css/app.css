@@ -749,12 +749,6 @@ select{
 .relative{
   position: relative;
 }
-.inset-0{
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
-}
 .top-0{
   top: 0px;
 }
@@ -763,6 +757,9 @@ select{
 }
 .bottom-0{
   bottom: 0px;
+}
+.right-0{
+  right: 0px;
 }
 .top-3{
   top: 0.75rem;
@@ -773,17 +770,11 @@ select{
 .right-2{
   right: 0.5rem;
 }
-.right-0{
-  right: 0px;
-}
 .z-0{
   z-index: 0;
 }
 .z-50{
   z-index: 50;
-}
-.z-10{
-  z-index: 10;
 }
 .col-span-1{
   grid-column: span 1 / span 1;
@@ -949,12 +940,6 @@ select{
 .h-8{
   height: 2rem;
 }
-.h-\[calc\(100\%-1rem\)\]{
-  height: calc(100% - 1rem);
-}
-.max-h-64{
-  max-height: 16rem;
-}
 .min-h-screen{
   min-height: 100vh;
 }
@@ -997,11 +982,11 @@ select{
 .w-8{
   width: 2rem;
 }
-.w-12{
-  width: 3rem;
-}
 .w-96{
   width: 24rem;
+}
+.w-12{
+  width: 3rem;
 }
 .min-w-0{
   min-width: 0px;
@@ -1014,9 +999,6 @@ select{
 }
 .max-w-2xl{
   max-width: 42rem;
-}
-.max-w-md{
-  max-width: 28rem;
 }
 .max-w-xl{
   max-width: 36rem;
@@ -1135,12 +1117,6 @@ select{
 }
 .overflow-hidden{
   overflow: hidden;
-}
-.overflow-y-auto{
-  overflow-y: auto;
-}
-.overflow-x-hidden{
-  overflow-x: hidden;
 }
 .truncate{
   overflow: hidden;
@@ -1262,9 +1238,6 @@ select{
   --tw-bg-opacity: 1;
   background-color: rgb(163 163 163 / var(--tw-bg-opacity));
 }
-.bg-transparent{
-  background-color: transparent;
-}
 .bg-indigo-50{
   --tw-bg-opacity: 1;
   background-color: rgb(238 242 255 / var(--tw-bg-opacity));
@@ -1272,6 +1245,9 @@ select{
 .bg-gray-800{
   --tw-bg-opacity: 1;
   background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+}
+.bg-transparent{
+  background-color: transparent;
 }
 .bg-gray-900{
   --tw-bg-opacity: 1;
@@ -1527,9 +1503,6 @@ select{
 }
 .opacity-100{
   opacity: 1;
-}
-.opacity-10{
-  opacity: 0.1;
 }
 .shadow-sm{
   --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
@@ -1816,6 +1789,9 @@ select{
   .sm\:ml-0{
     margin-left: 0px;
   }
+  .sm\:mr-2{
+    margin-right: 0.5rem;
+  }
   .sm\:block{
     display: block;
   }
@@ -1870,14 +1846,8 @@ select{
   }
 }
 @media (min-width: 768px){
-  .md\:inset-0{
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-  }
-  .md\:h-full{
-    height: 100%;
+  .md\:mr-2{
+    margin-right: 0.5rem;
   }
   .md\:grid-cols-2{
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1898,6 +1868,9 @@ select{
   }
   .lg\:mt-0{
     margin-top: 0px;
+  }
+  .lg\:mr-4{
+    margin-right: 1rem;
   }
   .lg\:flex{
     display: flex;

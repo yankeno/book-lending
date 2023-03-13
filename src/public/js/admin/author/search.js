@@ -64,7 +64,3 @@ for (let i = 0; i < buttons.length; i++) {
 const register = document.getElementById("register");
 const submitAuthor = document.getElementById("submit-author");
 register.addEventListener("click", () => MicroModal.show("modal-register"));
-submitAuthor.addEventListener("click", () => {
-  const authorName = document.getElementById("author-name").value;
-  fetch(`${appUrl}/admin/author/store`);
-});
